@@ -25,28 +25,8 @@ func Database(){
 		//更新数据
 //"update admin set account='golang', password='golang' ,PRIVILEGE='readonly' where id='2'")
 	checkErr(err)
-
-
 	_, err = stmt.Exec()
-	//checkErr(err)
-	//
-	//id, err := res.LastInsertId()
-	//checkErr(err)
-	//
-	//fmt.Println(id)
-	////更新数据
-	//stmt, err = db.Prepare("update userinfo set username=? where uid=?")
-	//checkErr(err)
-	//
-	//res, err = stmt.Exec("码农二代", id)
-	//checkErr(err)
-	//
-	//affect, err := res.RowsAffected()
-	//checkErr(err)
-	//
-	//fmt.Println(affect)
-	//
-	//查询数据
+
 	rows, err := db.Query("SELECT * FROM admin where id='1'")
 	checkErr(err)
 	fmt.Print("content is")
