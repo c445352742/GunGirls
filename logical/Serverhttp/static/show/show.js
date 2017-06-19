@@ -1,8 +1,9 @@
 var show=new Vue({
     el: "#show",
     data:{
+        name:tplobj.adminAcc,
+        privilege:tplobj.privilege,
         toggle:false,
-        name:s
     },
     methods:{
         act:function(){

@@ -6,11 +6,11 @@ import (
 	"text/template"
 	"../../kit/sessions-master"
 	"../../kit/context-master"
-	"fmt"
 
-	//mysql
+	//mysql database
 	"../../mydb"
 
+	"fmt"
 )
 
 const currentDir = "./logical/Serverhttp"
@@ -50,20 +50,23 @@ func show(w http.ResponseWriter, r *http.Request) {
 		log.Fatal("convert template: ", err)
 	}
 	session,err := store.Get(r,"userinfo")
-	// 将页面渲染后反馈给客户端
 
-	d:=data()
-	//fmt.Print(session.Values["account"])
-	var p string
-	if session.Values["account"]==nil {
-		p= "null session"
+	var admin string
+	var pri string="pp"
+	//read session
+	if session.Values["adminAcc"]==nil {//if null
+		admin= "null session"
+		pri="none"
 	}else{
-		p= session.Values["account"].([]string)[0]
+		admin= session.Values["adminAcc"].(string)
+		pri= session.Values["privilege"].(string)
 	}
-
-	d["s"]=p
+	// 将页面渲染后反馈给客户端
+	d:=data()
+	d["adminAcc"]=admin
+	d["privilege"]=pri
+	//fmt.Println(admin,pri)
 	t.Execute(w, d)
-	//t.Execute(w, data())
 }
 
 func check(w http.ResponseWriter, r *http.Request)  {
@@ -78,25 +81,27 @@ func check(w http.ResponseWriter, r *http.Request)  {
 	session.Options = &sessions.Options{
 		Path:     "/",
 		//秒为单位
-		MaxAge:   3600 ,
+		MaxAge:   3600,
 		HttpOnly: true,
 	}
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	fmt.Println("write session:",session.IsNew)
-	// Set some session values.
-	session.Values["account"] = nil
-	session.Values["pwd"] = nil
-	if(r.Method == "POST") {
-		session.Values["Id"] = r.Form["account"]
-		session.Values["pwd"] = r.Form["password"]
+
+	//resolve the ajax form and search data in the db
+	adminmap:=Mydb.Admin(r.Form["account" ][0])
+	//write session
+	if(r.Method == "POST")&&(r.Form["password"][0]==adminmap[0]["password"]) {
+		session.Values["adminAcc"] = adminmap[0]["account"]
+		session.Values["privilege"]= adminmap[0]["privilege"]
 	}
+
 	// Save it before we write to the response/return from the handler.
 	session.Save(r, w)
-
-	http.Redirect(w,r,"/show",http.StatusFound)
+	fmt.Println("leave function: check")
+	fmt.Fprint(w,"an response from go")
+	//http.Redirect(w,r,"/show",http.StatusFound)
 }
 
 func Httpmain() {
@@ -106,7 +111,7 @@ func Httpmain() {
 	http.HandleFunc("/", index)    //设置访问的路由
 	http.HandleFunc("/check", check)    //设置访问的路由
 	http.HandleFunc("/show", show) //设置访问的路由
-	go Mydb.Database()
+	//go Mydb.Database()
 	err := http.ListenAndServe(":7000", context.ClearHandler(http.DefaultServeMux)) //设置监听的端口
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)

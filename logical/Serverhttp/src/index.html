@@ -15,7 +15,7 @@
         <h1 class="text-center" :class="{yellow:toggle}">
             Game Master Log In
         </h1>
-        <form autocomplete="off" action="./check" method="post">
+        <form autocomplete="off" method="post" action="./check">
             <div class="input-group form-group input-group-lg">
                 <span class="constw input-group-addon ">&nbsp;&nbsp;Account&nbsp;:</span>
                 <input v-model.trim="acc" name="account" type="text" class=" form-control" >
@@ -24,14 +24,14 @@
                 <span class="constw input-group-addon">Password:</span>
                 <input name="password" type="password" class="form-control" >
             </div>
-            <button class="btn btn-warning btn-lg btn-block" type="submit">Submit</button>
+            <button class="btn btn-warning btn-lg btn-block" @click.prevent="submit">Submit</button>
         </form>
     </div>
 
 </div>
 
 <script src="https://cdn.bootcss.com/vue/2.3.3/vue.js"></script>
-
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="./static/index.js"></script>
 </body>
 </html>

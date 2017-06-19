@@ -5,10 +5,15 @@ var app2=new Vue({
         acc:""
     },
     methods:{
-        act:function(){
-            if(this.toggle)
-                this.toggle=false;
-            else this.toggle=true;
+        submit:function(){
+            console.log("check");
         },
     }
 });
+axios.get('/check')
+    .then(function (response) {
+        console.log(response);
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
