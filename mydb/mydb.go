@@ -14,15 +14,20 @@ var (
 )
 func Database(){
 	s:=username+":"+password+"@"+dbip+"/"+dbname+"?timeout=1s"
-	
+
 	db, err := sql.Open("mysql",s)
 	//fmt.Print(err)
 	defer db.Close()
-	////插入数据
-	//stmt, err := db.Prepare("INSERT userinfo SET username=?,departname=?,created=?")
-	//checkErr(err)
-	//
-	//res, err := stmt.Exec("码农", "研发部门", "2016-03-06")
+
+	stmt, err := db.Prepare(
+		//插入数据
+"INSERT INTO admin (account, password ,PRIVILEGE)values('ff' ,'ff', 'ff')")
+		//更新数据
+//"update admin set account='golang', password='golang' ,PRIVILEGE='readonly' where id='2'")
+	checkErr(err)
+
+
+	_, err = stmt.Exec()
 	//checkErr(err)
 	//
 	//id, err := res.LastInsertId()
@@ -42,7 +47,7 @@ func Database(){
 	//fmt.Println(affect)
 	//
 	//查询数据
-	rows, err := db.Query("SELECT * FROM admin ")
+	rows, err := db.Query("SELECT * FROM admin where id='1'")
 	checkErr(err)
 	fmt.Print("content is")
 	for rows.Next() {
