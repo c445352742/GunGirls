@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <META HTTP-EQUIV="pragma" CONTENT="no-cache">
+    <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+    <META HTTP-EQUIV="expires" CONTENT="0">
+    <title>Wood Games</title>
+    <link href="./static/index.css" rel=stylesheet>
+    <link href="./static/res/bootstrap.css" rel="stylesheet">
+</head>
+<body>
+<div id="app">
+    <div class="container text-center">
+        <h1 class="text-center" :class="{yellow:toggle}">
+            Game Master Log In
+        </h1>
+        <form autocomplete="off" action="./check" method="post">
+            <div class="input-group form-group input-group-lg">
+                <span class="constw input-group-addon ">&nbsp;&nbsp;Account&nbsp;:</span>
+                <input v-model.trim="acc" name="account" type="text" class=" form-control" >
+            </div>
+            <div class="input-group form-group input-group-lg">
+                <span class="constw input-group-addon">Password:</span>
+                <input name="password" type="password" class="form-control" >
+            </div>
+            <button class="btn btn-warning btn-lg btn-block" type="submit">Submit</button>
+        </form>
+    </div>
+
+</div>
+
+<script src="https://cdn.bootcss.com/vue/2.3.3/vue.js"></script>
+
+<script src="./static/index.js"></script>
+</body>
+</html>

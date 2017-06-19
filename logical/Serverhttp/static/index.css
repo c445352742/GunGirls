@@ -1,0 +1,41 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#app {
+    /*width: 600px;*/
+    height: 100vh;
+    margin: 0 auto;
+    background: url("./res/back1.jpg") ;
+    background-size: cover;
+}
+#app form input{
+    opacity: .6;
+}
+#app .btn-lg{
+    font-weight: bold;
+    font-size: 24px;
+}
+.container h1 {
+    color: #d98800;
+    margin: 80px 0 50px;
+    font-size:45px ;
+    font-weight: bold;
+}
+
+.container .constw {
+    /*width: 40px;*/
+}
+
+
+
+
+.container form {
+    width: 600px;
+    display: inline-block;
+}
+
+.yellow {
+    color: rgb(213, 134, 0);
+}
