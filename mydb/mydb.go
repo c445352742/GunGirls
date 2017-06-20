@@ -43,11 +43,12 @@ func Admin(uacc string)[]map[string]string  {
 	}
 	//if no such account
 	if m1["account"]=="" {
-		m1["account"] = "null"
-		m1["password"] = "null"
-		m1["privilege"] = "null"
+		m1["account"] = "no such account"
+		m1["password"] = "no such account"
+		m1["privilege"] = "no such account"
 		m = append(m, m1)
 	}
+	//fmt.Println(m)
 	return m
 
 }

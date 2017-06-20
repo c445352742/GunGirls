@@ -15,17 +15,27 @@
         <h1 class="text-center" :class="{yellow:toggle}">
             Game Master Log In
         </h1>
-        <form autocomplete="off" method="post" action="./check">
+        <form autocomplete="off" >
             <div class="input-group form-group input-group-lg">
                 <span class="constw input-group-addon ">&nbsp;&nbsp;Account&nbsp;:</span>
-                <input v-model.trim="acc" name="account" type="text" class=" form-control" >
+                <input v-model.trim="acc" name="account" v-model.trim="acc" type="text" class=" form-control" >
+            </div>
+            <div class="input-group form-group" v-if="noacc">
+                未注册的管理员帐号
+            </div>
+            <div class="input-group form-group" v-if="empty">
+                帐号或密码不能为空
             </div>
             <div class="input-group form-group input-group-lg">
                 <span class="constw input-group-addon">Password:</span>
-                <input name="password" type="password" class="form-control" >
+                <input name="password" type="password" v-model="pwd" class="form-control" >
+            </div>
+            <div class="input-group form-group" v-if="wrongpwd">
+                密码错误
             </div>
             <button class="btn btn-warning btn-lg btn-block" @click.prevent="submit">Submit</button>
         </form>
+        <!--@click.prevent="submit"-->
     </div>
 
 </div>

@@ -50,29 +50,31 @@ func show(w http.ResponseWriter, r *http.Request) {
 		log.Fatal("convert template: ", err)
 	}
 	session,err := store.Get(r,"userinfo")
-
+	//fmt.Println(session.Values)
 	var admin string
-	var pri string="pp"
+	var pri string
+	d:=data()
 	//read session
-	if session.Values["adminAcc"]==nil {//if null
-		admin= "null session"
-		pri="none"
+	if session.Values["adminAcc"]=="null" {//if null
+		d["adminAcc"]="Anonymous"
+		d["privilege"]="No Access"
 	}else{
 		admin= session.Values["adminAcc"].(string)
 		pri= session.Values["privilege"].(string)
+		d["adminAcc"]=admin
+		d["privilege"]=pri
 	}
 	// 将页面渲染后反馈给客户端
-	d:=data()
-	d["adminAcc"]=admin
-	d["privilege"]=pri
-	//fmt.Println(admin,pri)
-	t.Execute(w, d)
+
+
+	t.Execute(w,d)
 }
 
 func check(w http.ResponseWriter, r *http.Request)  {
 	r.ParseForm() //解析参数，默认是不会解析的
 	//for i, v := range r.Form {
 	//	fmt.Println(i, "  ", v)
+	//	fmt.Println("in check:",r.Form)
 	//}
 	//r.Form["account"]
 
@@ -90,17 +92,43 @@ func check(w http.ResponseWriter, r *http.Request)  {
 	}
 
 	//resolve the ajax form and search data in the db
-	adminmap:=Mydb.Admin(r.Form["account" ][0])
+	var account string="null account"
+	if len(r.Form)!=0{
+		//fmt.Println("form is:",r.Form)
+		account=r.Form["account"][0]
+	}
+	adminmap:=Mydb.Admin(account)
+
 	//write session
-	if(r.Method == "POST")&&(r.Form["password"][0]==adminmap[0]["password"]) {
-		session.Values["adminAcc"] = adminmap[0]["account"]
-		session.Values["privilege"]= adminmap[0]["privilege"]
+	//fmt.Println("form is:",len(r.Form))
+
+	if adminmap[0]["password"]=="no such account"{
+		session.Values["adminAcc"] = "null"
+		session.Values["privilege"]= "null"
+		// Save it before we write to the response/return from the handler.
+		session.Save(r, w)
+		fmt.Fprint(w,"no such account")
+		// Save it before we write to the response/return from the handler.
+		return
 	}
 
-	// Save it before we write to the response/return from the handler.
-	session.Save(r, w)
-	fmt.Println("leave function: check")
-	fmt.Fprint(w,"an response from go")
+	if r.Form["password"][0]!=adminmap[0]["password"] {
+		session.Values["adminAcc"] = "null"
+		session.Values["privilege"]= "null"
+		// Save it before we write to the response/return from the handler.
+		session.Save(r, w)
+		fmt.Fprint(w,"wrong password")
+		// Save it before we write to the response/return from the handler.
+		return
+	}
+	if r.Form["password"][0]==adminmap[0]["password"]{
+		session.Values["adminAcc"] = adminmap[0]["account"]
+		session.Values["privilege"]= adminmap[0]["privilege"]
+		// Save it before we write to the response/return from the handler.
+		session.Save(r, w)
+		fmt.Fprint(w,"logged in")
+		return
+	}
 	//http.Redirect(w,r,"/show",http.StatusFound)
 }
 
