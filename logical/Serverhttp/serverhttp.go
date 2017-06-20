@@ -6,10 +6,10 @@ import (
 	"text/template"
 	"../../kit/sessions-master"
 	"../../kit/context-master"
+	"../../kit/net-master/websocket"
 
 	//mysql database
 	"../../mydb"
-
 	"fmt"
 )
 
@@ -132,6 +132,23 @@ func check(w http.ResponseWriter, r *http.Request)  {
 	//http.Redirect(w,r,"/show",http.StatusFound)
 }
 
+func echoHandler(ws *websocket.Conn) {
+	msg := make([]byte, 512)
+
+	n, err := ws.Read(msg)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("Receive: %s\n", msg[:n])
+
+	send_msg := "[" + string(msg[:n]) + "]"
+	m, err := ws.Write([]byte(send_msg))
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("Send: %s\n", msg[:m])
+}
+
 func Httpmain() {
 	//静态服务
 	http.Handle("/static/", http.FileServer(http.Dir(currentDir)))
@@ -139,6 +156,8 @@ func Httpmain() {
 	http.HandleFunc("/", index)    //设置访问的路由
 	http.HandleFunc("/check", check)    //设置访问的路由
 	http.HandleFunc("/show", show) //设置访问的路由
+	//长连接websocket
+	http.Handle("/echo", websocket.Handler(echoHandler))
 	//go Mydb.Database()
 	err := http.ListenAndServe(":7000", context.ClearHandler(http.DefaultServeMux)) //设置监听的端口
 	if err != nil {
