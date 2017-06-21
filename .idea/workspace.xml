@@ -24,7 +24,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="27">
@@ -34,12 +34,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Db.md" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Db.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mydb/Db.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
               <first_editor relative-caret-position="81">
-                <caret line="3" column="21" lean-forward="true" selection-start-line="3" selection-start-column="21" selection-end-line="3" selection-end-column="21" />
+                <caret line="3" column="16" lean-forward="false" selection-start-line="3" selection-start-column="16" selection-end-line="3" selection-end-column="16" />
                 <folding />
               </first_editor>
               <second_editor />
@@ -78,6 +78,7 @@
         <option value="$PROJECT_DIR$/logical/Serverhttp/http.md" />
         <option value="$PROJECT_DIR$/kit/Kit.md" />
         <option value="$PROJECT_DIR$/mydb/Db.md" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -326,12 +327,12 @@
       <workItem from="1497858203148" duration="6628000" />
       <workItem from="1497920379321" duration="16380000" />
       <workItem from="1498006699194" duration="1633000" />
-      <workItem from="1498009434322" duration="484000" />
+      <workItem from="1498009434322" duration="527000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="35658000" />
+    <option name="totallyTimeSpent" value="35701000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-12" y="0" width="1382" height="728" extended-state="0" />
@@ -671,22 +672,22 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/mydb/Db.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="81">
+            <caret line="3" column="16" lean-forward="false" selection-start-line="3" selection-start-column="16" selection-end-line="3" selection-end-column="16" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="27">
           <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mydb/Db.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="81">
-            <caret line="3" column="21" lean-forward="true" selection-start-line="3" selection-start-column="21" selection-end-line="3" selection-end-column="21" />
-            <folding />
-          </first_editor>
-          <second_editor />
         </state>
       </provider>
     </entry>
