@@ -12,7 +12,7 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="serverhttp.go" pinned="false" current-in-tab="true">
+      <file leaf-file-name="serverhttp.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/logical/Serverhttp/serverhttp.go">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="405">
@@ -22,6 +22,19 @@
                 <element signature="n#!!block;n#show#0" expanded="false" />
                 <element signature="n#!!block;n#check#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Db.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/mydb/Db.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="108">
+                <caret line="4" column="2" lean-forward="true" selection-start-line="4" selection-start-column="2" selection-end-line="4" selection-end-column="2" />
+                <folding />
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
@@ -59,9 +72,9 @@
         <option value="$PROJECT_DIR$/logical/Serverhttp/static/index.js" />
         <option value="$PROJECT_DIR$/logical/Serverhttp/serverhttp.go" />
         <option value="$PROJECT_DIR$/Structure.md" />
-        <option value="$PROJECT_DIR$/mydb/Db.md" />
         <option value="$PROJECT_DIR$/logical/Serverhttp/http.md" />
         <option value="$PROJECT_DIR$/kit/Kit.md" />
+        <option value="$PROJECT_DIR$/mydb/Db.md" />
       </list>
     </option>
   </component>
@@ -310,12 +323,12 @@
       <workItem from="1497858203148" duration="6628000" />
       <workItem from="1497920379321" duration="16380000" />
       <workItem from="1498006699194" duration="1633000" />
-      <workItem from="1498009434322" duration="42000" />
+      <workItem from="1498009434322" duration="95000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="35216000" />
+    <option name="totallyTimeSpent" value="35269000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-12" y="0" width="1382" height="728" extended-state="0" />
@@ -625,16 +638,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mydb/Db.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="81">
-            <caret line="3" column="29" lean-forward="true" selection-start-line="3" selection-start-column="29" selection-end-line="3" selection-end-column="29" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/entry.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -672,6 +675,17 @@
             <element signature="n#!!block;n#show#0" expanded="false" />
             <element signature="n#!!block;n#check#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mydb/Db.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="108">
+            <caret line="4" column="2" lean-forward="true" selection-start-line="4" selection-start-column="2" selection-end-line="4" selection-end-column="2" />
+            <folding />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
