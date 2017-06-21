@@ -11,6 +11,8 @@ import (
 	//mysql database
 	"../../mydb"
 	"fmt"
+	"strconv"
+	"time"
 )
 
 const currentDir = "./logical/Serverhttp"
@@ -55,7 +57,9 @@ func show(w http.ResponseWriter, r *http.Request) {
 	var pri string
 	d:=data()
 	//read session
-	if session.Values["adminAcc"]=="null" {//if null
+	//fmt.Println("in show")
+	if (session.Values["adminAcc"]==nil)||(session.Values["adminAcc"]=="null") {//if null
+		//fmt.Println("in if")
 		d["adminAcc"]="Anonymous"
 		d["privilege"]="No Access"
 	}else{
@@ -65,12 +69,11 @@ func show(w http.ResponseWriter, r *http.Request) {
 		d["privilege"]=pri
 	}
 	// 将页面渲染后反馈给客户端
-
-
 	t.Execute(w,d)
 }
 
 func check(w http.ResponseWriter, r *http.Request)  {
+	//ajax异步登录并跳转
 	r.ParseForm() //解析参数，默认是不会解析的
 	//for i, v := range r.Form {
 	//	fmt.Println(i, "  ", v)
@@ -101,7 +104,7 @@ func check(w http.ResponseWriter, r *http.Request)  {
 
 	//write session
 	//fmt.Println("form is:",len(r.Form))
-
+	//根据不同的结果返回不同的值
 	if adminmap[0]["password"]=="no such account"{
 		session.Values["adminAcc"] = "null"
 		session.Values["privilege"]= "null"
@@ -111,7 +114,6 @@ func check(w http.ResponseWriter, r *http.Request)  {
 		// Save it before we write to the response/return from the handler.
 		return
 	}
-
 	if r.Form["password"][0]!=adminmap[0]["password"] {
 		session.Values["adminAcc"] = "null"
 		session.Values["privilege"]= "null"
@@ -130,36 +132,48 @@ func check(w http.ResponseWriter, r *http.Request)  {
 		return
 	}
 	//http.Redirect(w,r,"/show",http.StatusFound)
+
 }
 
-func echoHandler(ws *websocket.Conn) {
-	msg := make([]byte, 512)
-
+func websocketHandler(ws *websocket.Conn) {
+	msg := make([]byte,512)
 	n, err := ws.Read(msg)
 	if err != nil {
 		log.Fatal(err)
 	}
 	fmt.Printf("Receive: %s\n", msg[:n])
+	//fmt.Println(:n)
+	//send_msg := "[" + string(msg[:n]) + "]"+strconv.Itoa(len(msg))
+	 aa(ws,msg,n)
 
-	send_msg := "[" + string(msg[:n]) + "]"
-	m, err := ws.Write([]byte(send_msg))
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("Send: %s\n", msg[:m])
+	//fmt.Printf("Send: %s\n", msg[:m])
+}
+func aa(ws *websocket.Conn,msg []byte,n int)  {
+	send_msg := "[" + string(msg[:n]) + "]"+strconv.Itoa(len(msg))
+	ws.Write([]byte(send_msg))
+	time.Sleep(time.Millisecond*50)
+	aa(ws,msg,n)
 }
 
 func Httpmain() {
 	//静态服务
 	http.Handle("/static/", http.FileServer(http.Dir(currentDir)))
 	//动态模版渲染
-	http.HandleFunc("/", index)    //设置访问的路由
+
 	http.HandleFunc("/check", check)    //设置访问的路由
 	http.HandleFunc("/show", show) //设置访问的路由
+	http.HandleFunc("/", index)    //设置访问的路由
+
 	//长连接websocket
-	http.Handle("/echo", websocket.Handler(echoHandler))
+	http.Handle("/ws", websocket.Handler(websocketHandler))
+
+
 	//go Mydb.Database()
-	err := http.ListenAndServe(":7000", context.ClearHandler(http.DefaultServeMux)) //设置监听的端口
+	err := http.ListenAndServe(":7000",
+		context.ClearHandler(http.DefaultServeMux)) //设置监听的端口
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
