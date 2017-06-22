@@ -4,8 +4,10 @@ import (
 	"net"
 	"./gate"
 	"./logical/Serverhttp"
-
+	"./logical/gamelogical"
 )
+
+
 
 func main() {
 	var tcpAddr *net.TCPAddr
@@ -24,6 +26,8 @@ func main() {
 		tcpConn, err := tcpListener.AcceptTCP()
 		if err != nil {
 			continue
+		}else{
+
 		}
 		fmt.Println("A client connected : " + tcpConn.RemoteAddr().String())
 		go gate.TcpPipe(tcpConn)
