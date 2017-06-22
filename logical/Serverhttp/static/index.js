@@ -5,9 +5,8 @@ var app2=new Vue({
         toggle:false,
         acc:"golang",
         pwd:"golang",
-        wrongpwd:false,
-        noacc:false,
-        empty:false,
+        show:false,
+        info:""
     },
     methods:{
         see:function () {
@@ -15,17 +14,14 @@ var app2=new Vue({
         },
         submit:function(){
             if(this.acc==""||this.pwd==""){
-                this.infoini();
-                this.empty=true;
+                this.show=true;
+                this.info="帐号或密码不能为空";
             }else{
                 this.myajax();
             }
         },
-        infoini:function () {
-            this.empty=false;
-            this.wrongpwd=false;
-            this.noacc=false;
-        },
+
+
         myajax:function () {
             var vue=this;
             this.$ajax({
@@ -38,16 +34,24 @@ var app2=new Vue({
                     password: vue.pwd,
                 }
             }).then(function(res){
-                if(res.data=="wrong password") {
-                    vue.infoini();
-                    vue.wrongpwd=true;
-                }
-                else if(res.data=="no such account") {
-                    vue.infoini();
-                    vue.noacc=true;
-                }
-                else if(res.data=="logged in") {
-                    location.href='./show'
+                switch (res.data){
+                    case "wrong password":
+                        vue.show=true;
+                        vue.info="密码错误";
+                        break;
+                    case "no such account":
+                        vue.show=true;
+                        vue.info="未注册的管理员帐号";
+                        break;
+                    case "db tcp time out":
+                        vue.show=true;
+                        vue.info="数据库连接超时";
+                        break;
+                    case "logged in":
+                        vue.show=false;
+                        location.href='./show';
+                        break;
+                    default:
                 }
             }).
             catch(function (err) {
