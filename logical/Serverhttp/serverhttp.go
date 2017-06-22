@@ -60,8 +60,7 @@ func show(w http.ResponseWriter, r *http.Request) {
 	//fmt.Println("in show")
 	if (session.Values["adminAcc"]==nil)||(session.Values["adminAcc"]=="null") {//if null
 		//fmt.Println("in if")
-		d["adminAcc"]="Anonymous"
-		d["privilege"]="No Access"
+		http.Redirect(w,r,"/",http.StatusFound)
 	}else{
 		admin= session.Values["adminAcc"].(string)
 		pri= session.Values["privilege"].(string)
@@ -105,12 +104,21 @@ func check(w http.ResponseWriter, r *http.Request)  {
 	//write session
 	//fmt.Println("form is:",len(r.Form))
 	//根据不同的结果返回不同的值
-	if adminmap[0]["password"]=="no such account"{
+	if adminmap[0]["account"]=="no such account"{
 		session.Values["adminAcc"] = "null"
 		session.Values["privilege"]= "null"
 		// Save it before we write to the response/return from the handler.
 		session.Save(r, w)
 		fmt.Fprint(w,"no such account")
+		// Save it before we write to the response/return from the handler.
+		return
+	}
+	if adminmap[0]["account"]=="db tcp time out"{
+		session.Values["adminAcc"] = "null"
+		session.Values["privilege"]= "null"
+		// Save it before we write to the response/return from the handler.
+		session.Save(r, w)
+		fmt.Fprint(w,"db tcp time out")
 		// Save it before we write to the response/return from the handler.
 		return
 	}
@@ -137,20 +145,29 @@ func check(w http.ResponseWriter, r *http.Request)  {
 
 func websocketHandler(ws *websocket.Conn) {
 	msg := make([]byte,512)
-	n, err := ws.Read(msg)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("Receive: %s\n", msg[:n])
+
 	//fmt.Println(:n)
 	//send_msg := "[" + string(msg[:n]) + "]"+strconv.Itoa(len(msg))
-	 aa(ws,msg,n)
-
-	if err != nil {
-		log.Fatal(err)
+	for{
+		//n, err := ws.Read(msg)
+		//if err != nil {
+		//	log.Fatal(err)
+		//	break
+		//}
+		//fmt.Printf("Receive: %s\n", msg[:n])
+		time.Sleep(4 * time.Second)
+		send_msg := "[" + string("just send") +
+			"]:"+strconv.Itoa(time.Now().Second())
+		msg=[]byte(send_msg)
+		m, err := ws.Write([]byte(send_msg))
+		if err != nil {
+			fmt.Println(err)
+			break
+		}
+		fmt.Printf("Send: %s\n", msg[:m])
 	}
-	//fmt.Printf("Send: %s\n", msg[:m])
 }
+
 func aa(ws *websocket.Conn,msg []byte,n int)  {
 	send_msg := "[" + string(msg[:n]) + "]"+strconv.Itoa(len(msg))
 	ws.Write([]byte(send_msg))

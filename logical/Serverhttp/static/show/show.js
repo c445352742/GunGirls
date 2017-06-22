@@ -15,22 +15,24 @@ var show=new Vue({
             location.href="./"
         }
     },
+    mounted:function () {
+        this.send();
+    },
     methods:{
         websocket:function () {
-
-        },
-        send:function () {
             this.ws=new WebSocket("ws://localhost:7000/ws");
             this.ws.onmessage=function (e) {
                 console.log(e.data);
             }
+        },
+        send:function () {
             var times=this;
             setTimeout(function () {
                 var date=new Date();
                 var data="from browser: " +
                     date.getMinutes() +"m"+ date.getSeconds()
                 times.ws.send(data);
-            },1000)
+            },100)
 
         },
     },

@@ -20,18 +20,12 @@
                 <span class="constw input-group-addon ">&nbsp;&nbsp;Account&nbsp;:</span>
                 <input v-model.trim="acc" name="account" v-model.trim="acc" type="text" class=" form-control" >
             </div>
-            <div class="input-group form-group" v-if="noacc">
-                未注册的管理员帐号
-            </div>
-            <div class="input-group form-group" v-if="empty">
-                帐号或密码不能为空
+            <div class="input-group form-group" v-if="show">
+                {{.l}}info{{.r}}
             </div>
             <div class="input-group form-group input-group-lg">
                 <span class="constw input-group-addon">Password:</span>
                 <input name="password" type="password" v-model="pwd" class="form-control" >
-            </div>
-            <div class="input-group form-group" v-if="wrongpwd">
-                密码错误
             </div>
             <button class="btn btn-warning btn-lg btn-block" @click.prevent="submit">Submit</button>
         </form>
@@ -40,8 +34,8 @@
 
 </div>
 
-<script src="https://cdn.bootcss.com/vue/2.3.3/vue.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="./static/res/vue.js"></script>
+<script src="./static/res/axios.js"></script>
 <script src="./static/index.js"></script>
 </body>
 </html>

@@ -16,24 +16,39 @@ var (
 
 func Admin(uacc string)[]map[string]string  {
 	s:=username+":"+password+"@"+dbip+"/"+dbname+"?timeout=1s"
-	db, err := sql.Open("mysql",s)
-	//fmt.Print(err)
-	defer db.Close()
-
-	rows, err := db.Query("SELECT * FROM admin where account="+"'"+uacc+"'")
-
-	checkErr(err)
-
 	var m []map[string]string
 	var m1 map[string]string
 	m1=make(map[string]string)
 
+	db, err := sql.Open("mysql",s)
+
+	defer db.Close()
+
+	rows, err := db.Query("SELECT * FROM admin where account="+"'"+uacc+"'")
+
+	if err != nil {
+		if m1["account"]=="" {
+			m1["account"] = "db tcp time out"
+			m1["password"] = "no such account"
+			m1["privilege"] = "no such account"
+			m = append(m, m1)
+		}
+		//fmt.Println
+		fmt.Println(err)
+		return m
+
+	}
+
+
+
+	//fmt.Println("db err:"+strconv.Itoa(i))
 
 	for rows.Next() {
 		var id int
 		var account string
 		var password string
 		var privilege string
+
 		err = rows.Scan(&id, &account, &password, &privilege)
 		m1["id"]=strconv.Itoa(id)
 		m1["account"]=account
@@ -55,6 +70,7 @@ func Admin(uacc string)[]map[string]string  {
 
 func Database(){
 	s:=username+":"+password+"@"+dbip+"/"+dbname+"?timeout=1s"
+
 	db, err := sql.Open("mysql",s)
 	//fmt.Print(err)
 	defer db.Close()
@@ -67,7 +83,7 @@ func Database(){
 	checkErr(err)
 	_, err = stmt.Exec()
 
-	
+
 	
 	rows, err := db.Query("SELECT * FROM admin where id='1'")
 	checkErr(err)
@@ -78,7 +94,6 @@ func Database(){
 		var privilege string
 		err = rows.Scan(&id, &account, &password, &privilege)
 		checkErr(err)
-
 		fmt.Println(id)
 		fmt.Println(account)
 		fmt.Println(password)
