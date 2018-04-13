@@ -1,2 +1,3 @@
-vue/mode_modules
+vue/node_modules
+node_modules
 vue/.gitignore
