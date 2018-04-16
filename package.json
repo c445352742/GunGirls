@@ -1,10 +1,11 @@
 {
+  "main": "Elec1.js",
   "name": "valkyrievictoria",
   "version": "1.0.0",
   "description": "",
-  "main": "electron.js",
   "scripts": {
-    "dev": "electron ."
+    "dev": "electron . --dev",
+    "build":""
   },
   "repository": {
     "type": "git",
