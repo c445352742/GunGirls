@@ -1,4 +1,4 @@
-# valkyrie
+# vue
 
 > A Vue.js project
 
