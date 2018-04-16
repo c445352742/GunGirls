@@ -20,6 +20,5 @@
   },
   "homepage": "https://github.com/c445352742/ValkyrieVictoria#readme",
   "dependencies": {
-    "electron": "^1.8.4"
   }
 }
