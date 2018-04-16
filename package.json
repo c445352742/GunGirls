@@ -4,8 +4,10 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "dev1": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js&&electron . --dev",
     "dev": "electron . --dev",
-    "build":""
+    "build":"",
+    "cd":"cd vue\/dist"
   },
   "repository": {
     "type": "git",

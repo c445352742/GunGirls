@@ -13,23 +13,7 @@ const crypto = require('crypto');
 const fs = require('fs');
 
 // Keep a global reference of the window object, if you don't, the window will be closed automatically when the JavaScript object is garbage collected.
-var mainWindow = null;
-
-app.on('ready', createWindow);
-
-app.on('activate', function () {
-  if (mainWindow === null) {
-    createWindow()
-  }
-})
-
-ipc.on('close', function () {
-  app.quit();
-});
-
-app.on('window-all-closed', function () {
-  app.quit()
-})
+let mainWindow = null;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -43,7 +27,19 @@ function createWindow() {
     resizable: false,
   });
   // and load the index.html of the app.
-  mainWindow.loadURL(options.url);
+  if (process.argv[2]) {
+    mainWindow.loadURL(url.format({
+      pathname: '127.0.0.1:8989',
+      protocol: 'http:',
+      slashes: true
+    }));
+  }else{
+    mainWindow.loadURL(url.format({
+      pathname: '127.0.0.1:8989',
+      protocol: 'http:',
+      slashes: true
+    }));
+  }
 
   // 缩放设置
   mainWindow.once('ready-to-show', function () {
@@ -82,3 +78,19 @@ function createWindow() {
     app.quit();
   });
 }
+
+app.on('ready', createWindow);
+
+app.on('activate', function () {
+  if (mainWindow === null) {
+    createWindow()
+  }
+})
+
+ipc.on('close', function () {
+  app.quit();
+});
+
+app.on('window-all-closed', function () {
+  app.quit()
+})
