@@ -6,9 +6,8 @@
   "scripts": {
     "start": "npm run dev",
     "build": "cd vue&npm run build&cd ..",
-    "dev": "webpack-dev-server --inline --progress --config vue/build/webpack.dev.conf.js&electron .",
-    "tr": "\\node_modules\\.bin\\electron .",
-    "cd":"cd vue"
+    "dev1": "webpack-dev-server --inline --progress --config vue/build/webpack.dev.conf.js&electron .",
+    "dev": "electron ."
   },
   "repository": {
     "type": "git",
