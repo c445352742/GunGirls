@@ -4,10 +4,9 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev1": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js&&electron . --dev",
-    "dev": "electron . --dev",
-    "build":"",
-    "cd":"cd vue\/dist"
+    "dev12": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js&&electron . --dev",
+    "dev1": "node spawn/dev.js",
+    "pack": "node spawn/pack.js"
   },
   "repository": {
     "type": "git",
@@ -19,5 +18,8 @@
     "url": "https://github.com/c445352742/ValkyrieVictoria/issues"
   },
   "homepage": "https://github.com/c445352742/ValkyrieVictoria#readme",
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {
+    "electron-packager": "^12.0.1"
+  }
 }
