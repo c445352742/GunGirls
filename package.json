@@ -4,9 +4,10 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev12": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js&&electron . --dev",
-    "dev1": "node spawn/dev.js",
-    "pack": "node spawn/pack.js"
+    "dev12": "cd ./node_modules/.bin/electron&electron .",
+    "dev": "node spawn/dev.js",
+    "pack": "node vue/build/build.js&node spawn/pack.js",
+    "pack:asar": "node spawn/pack.js"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,8 @@
   "homepage": "https://github.com/c445352742/ValkyrieVictoria#readme",
   "dependencies": {},
   "devDependencies": {
+    "chalk": "^2.3.2",
+    "electron": "^1.8.4",
     "electron-packager": "^12.0.1"
   }
 }
