@@ -13,7 +13,7 @@ let options = {
     asar: false,
     electronVersion: '1.8.4',
     dir: path.join(__dirname, '../'),
-    icon: path.join(__dirname, '../static/logo.ico'),
+    // icon: path.join(__dirname, '../static/logo.ico'),
     ignore: /^\/(build|vue|installer|config|\.[a-z]+|README|static|src)/,
     out: path.join(__dirname, '../out'),
     overwrite: true,

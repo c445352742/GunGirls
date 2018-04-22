@@ -35,7 +35,7 @@ function createWindow() {
     }));
   }else{
     mainWindow.loadURL(url.format({
-      pathname: '127.0.0.1:8989',
+      pathname: 'www.baidu.com',
       protocol: 'http:',
       slashes: true
     }));
