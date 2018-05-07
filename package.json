@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "node spawn/dev.js",
     "pack": "node vue/build/build.js&node spawn/pack.js",
-    "pack:asar": "node spawn/pack.js"
+    "pack:ele": "node spawn/pack.js"
   },
   "repository": {
     "type": "git",
