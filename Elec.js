@@ -11,7 +11,8 @@ const ipc = electron.ipcMain;
 // license check
 const crypto = require('crypto');
 const fs = require('fs');
-
+const svr = require('./server.js');
+svr(9000);
 // Keep a global reference of the window object, if you don't, the window will be closed automatically when the JavaScript object is garbage collected.
 let mainWindow = null;
 
@@ -27,20 +28,15 @@ function createWindow() {
     resizable: false,
   });
   // and load the index.html of the app.
-  console.log('');
-  console.log('');
-  console.log('');
-  console.log(process.argv);
-  console.log('');  console.log('');
   if (process.argv[2]) {
     mainWindow.loadURL(url.format({
       pathname: '127.0.0.1:8989',
       protocol: 'http:',
       slashes: true
     }));
-  }else{
+  } else {
     mainWindow.loadURL(url.format({
-      pathname: 'www.baidu.com',
+      pathname: 'localhost:9000',
       protocol: 'http:',
       slashes: true
     }));
@@ -58,7 +54,7 @@ function createWindow() {
     mainWindow.reload();
   });
 
-  electron.globalShortcut.register('f11', function () {
+  electron.globalShortcut.register('f10', function () {
     mainWindow.webContents.toggleDevTools();
   });
   electron.globalShortcut.register('Esc', function () {
