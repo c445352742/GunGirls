@@ -1,7 +1,7 @@
 const cp = require('child_process');
 let exec = cp.exec;
 
-var devSvr = exec('cd ' + __dirname + '\\..\\vue&npm run dev', function (error, stdout, stderr) {
+var devSvr = exec('cd ' + __dirname + '/../vue&&npm run devVue', function (error, stdout, stderr) {
     if (error) {
         console.error('error: ' + error);
         return;

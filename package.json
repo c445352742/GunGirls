@@ -4,8 +4,9 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "node spawn/dev.js",
-    "pack": "node vue/build/build.js&node spawn/pack.js",
+    "dev1": "node spawn/dev.js",
+    "dev": "cd ./vue&&npm run devVue",
+    "pack": "node vue/build/build.js&&node spawn/pack.js",
     "pack:ele": "node spawn/pack.js"
   },
   "repository": {
@@ -24,6 +25,6 @@
   "devDependencies": {
     "chalk": "^2.3.2",
     "electron": "^1.8.4",
-    "electron-packager": "^12.0.1"
+    "electron-packager": "^1  2.0.1"
   }
 }
