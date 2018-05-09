@@ -27,6 +27,11 @@ function createWindow() {
     resizable: false,
   });
   // and load the index.html of the app.
+  console.log('');
+  console.log('');
+  console.log('');
+  console.log(process.argv);
+  console.log('');  console.log('');
   if (process.argv[2]) {
     mainWindow.loadURL(url.format({
       pathname: '127.0.0.1:8989',
