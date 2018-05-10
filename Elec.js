@@ -12,7 +12,7 @@ const ipc = electron.ipcMain;
 const crypto = require('crypto');
 const fs = require('fs');
 const svr = require('./server.js');
-svr(9000);
+if ('dev' != process[2]) svr(9000);
 // Keep a global reference of the window object, if you don't, the window will be closed automatically when the JavaScript object is garbage collected.
 let mainWindow = null;
 

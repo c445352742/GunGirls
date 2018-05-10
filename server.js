@@ -39,6 +39,6 @@ module.exports = function server(port) {
   server.listen(port || 8989, 'localhost', function () {
     let addr = server.address().address;
     let port = server.address().port
-    console.log('Listening on ' + addr + ':' + port);
+    console.log('Api Server is Listening on ' + addr + ':' + port);
   });
 }

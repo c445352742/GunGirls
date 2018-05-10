@@ -4,7 +4,9 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "server": "node server.js",
+    "devSvr": "cd ./vue&&npm run devVue",
+    "ele": "./node_modules/.bin/electron .",
+    "apisvr": "node server.js",
     "dev": "node spawn/dev.js",
     "pack": "node vue/build/build.js&&node spawn/pack.js",
     "pack:ele": "node spawn/pack.js"
