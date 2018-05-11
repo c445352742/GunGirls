@@ -1,6 +1,6 @@
 <template>
-  <div @click="apc" id="app">fe
-    <img src="./assets/logo.png">
+  <div  id="app">fe
+    <img @click="apc" src="./assets/logo.png">
     <router-view/>
   </div>
 </template>
@@ -13,6 +13,22 @@ export default {
   },
   methods: {
     apc() {
+      this.axios({
+        method: "get",
+        url: "127.0.0.1:9000/api",
+        data: {
+          firstName: "Fred",
+          lastName: "Flintstone"
+        },
+        // success: (s) => {
+        //   console.log(s);
+        // },
+        // error: (err) => {
+        //   console.log(err);
+        // }
+      }).then(_=>{console.log(_);}).catch(_=>{
+        console.error(_);
+      });
       console.log(this.$store.state.count);
     }
   }

@@ -4,10 +4,9 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "devSvr": "cd ./vue&&npm run devVue",
-    "ele": "./node_modules/.bin/electron .",
-    "apisvr": "node server.js",
-    "dev": "node spawn/dev.js",
+    "dev": "cd ./vue&&npm run devVue",
+    "ele": "./node_modules/.bin/electron . --dev",
+    "api": "node apiSvr",
     "pack": "node vue/build/build.js&&node spawn/pack.js",
     "pack:ele": "node spawn/pack.js"
   },
@@ -22,7 +21,9 @@
   },
   "homepage": "https://github.com/c445352742/ValkyrieVictoria#readme",
   "dependencies": {
-    "npm": "^5.8.0"
+    "axios": "^0.18.0",
+    "npm": "^5.8.0",
+    "vue-axios": "^2.1.1"
   },
   "devDependencies": {
     "chalk": "^2.3.2",

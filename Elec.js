@@ -12,7 +12,7 @@ const ipc = electron.ipcMain;
 const crypto = require('crypto');
 const fs = require('fs');
 const svr = require('./server.js');
-if ('dev' != process[2]) svr(9000);
+if (!'--dev' == process.argv[2]) { svr(9000); console.log('api is running') }
 // Keep a global reference of the window object, if you don't, the window will be closed automatically when the JavaScript object is garbage collected.
 let mainWindow = null;
 
@@ -28,7 +28,7 @@ function createWindow() {
     resizable: false,
   });
   // and load the index.html of the app.
-  if (process.argv[2]) {
+  if ('--dev' == process.argv[2]) {
     mainWindow.loadURL(url.format({
       pathname: '127.0.0.1:8989',
       protocol: 'http:',
@@ -36,7 +36,7 @@ function createWindow() {
     }));
   } else {
     mainWindow.loadURL(url.format({
-      pathname: 'localhost:9000',
+      pathname: '127.0.0.1:9000',
       protocol: 'http:',
       slashes: true
     }));
