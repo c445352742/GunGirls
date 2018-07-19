@@ -2,7 +2,8 @@ const electron = require('electron');
 const {
   app, // 控制应用生命周期的模块
   BrowserWindow, // 创建原生浏览器窗口的模块
-  dialog
+  dialog, //对话框
+  Menu //菜单
 } = electron;
 // if (require('electron-squirrel-startup')) return;
 const path = require('path');
@@ -12,7 +13,7 @@ const ipc = electron.ipcMain;
 const crypto = require('crypto');
 const fs = require('fs');
 const svr = require('./server.js');
-if (!'--dev' == process.argv[2]) { svr(9000); console.log('api is running') }
+if ('--dev' !== process.argv[2]) { svr(9000); console.log('api is running') }
 // Keep a global reference of the window object, if you don't, the window will be closed automatically when the JavaScript object is garbage collected.
 let mainWindow = null;
 
@@ -23,6 +24,7 @@ function createWindow() {
     // frame: false,
     maximizable: false,
     fullscreen: false,
+    fullscreenable: true,
     alwaysOnTop: false,
     show: true,
     resizable: false,
@@ -46,29 +48,32 @@ function createWindow() {
   mainWindow.once('ready-to-show', function () {
     mainWindow.show();
     // mainWindow.webContents.setZoomFactor(license.GUI.zoomLevel);
-  });
 
-  mainWindow.setMenu(null);
-
-  electron.globalShortcut.register('f5', function () {
-    mainWindow.reload();
   });
-
-  electron.globalShortcut.register('f10', function () {
-    mainWindow.webContents.toggleDevTools();
-  });
-  electron.globalShortcut.register('Esc', function () {
-    dialog.showMessageBox({
-      type: 'warning',
-      message: '警告',
-      detail: '您确定退出吗？',
-      buttons: ['退出', '取消'],
-      modal: true,
-    }, function (index) {
-      if (index == 0)
-        app.quit();
-    })
-  });
+  let menu = Menu.buildFromTemplate([{
+    label: 'Operate',
+    submenu: [
+      { label: 'FullScreen', role: 'togglefullscreen', accelerator: 'F4' },
+      { label: 'Reload', role: 'Reload' },
+      { label: 'Force Reload', role: 'Force Reload', accelerator: 'F5' },
+      { label: 'devTools', role: 'toggledevtools', accelerator: 'F10' },
+      {
+        label: 'Exit', accelerator: 'Esc', click: function () {
+          dialog.showMessageBox({
+            type: 'warning',
+            message: '警告',
+            detail: '您确定退出吗？',
+            buttons: ['退出', '取消'],
+            modal: true,
+          }, function (index) {
+            if (index == 0)
+              app.quit();
+          })
+        }
+      }
+    ]
+  }]);
+  Menu.setApplicationMenu(menu);
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
