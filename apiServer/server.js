@@ -2,12 +2,15 @@ const http = require('http');
 const express = require('express');
 const path = require('path');
 const app = express();
+const api = require('./apiRouter')
 
 // set mode engine
+app.set('views', path.join(__dirname, '../dist'));
 app.engine('.html', require('ejs').__express);
 app.set('view engine', 'html');
-app.set('views', path.join(__dirname, 'dist'));
 
+// resolve router
+app.use(express.static(path.join(__dirname, '../dist')));
 // cross origion
 app.all('*', function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -18,11 +21,7 @@ app.all('*', function (req, res, next) {
   next();
 });
 
-// resolve router
-app.use(express.static(path.join(__dirname, 'dist')));
-app.get('/api', function (req, res) {
-  res.send({ a: 'index1' });
-});
+app.use('/api', api);
 app.get('/noneLicensed', function (req, res) {
   res.render(path.resolve(__dirname, 'noneLicensed'));
 });
@@ -30,7 +29,6 @@ app.get('/noneLicensed', function (req, res) {
 app.use(function (req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
-  next(err);
 });
 
 // error handler
