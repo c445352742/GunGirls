@@ -12,8 +12,30 @@ const ipc = electron.ipcMain;
 // license check
 const crypto = require('crypto');
 const fs = require('fs');
-const svr = require('./server.js');
+
+const svr = require('./apiServer/server.js');
 if ('--dev' !== process.argv[2]) { svr(9000); console.log('api is running') }
+
+// sqlite open
+const sqlite3 = require('sqlite3').verbose();
+const db = new sqlite3.Database(':memory:');
+console.log(require('sqlite3'))
+// db.serialize(function() {
+
+//   db.run('CREATE TABLE lorem (info TEXT)');
+//   var stmt = db.prepare('INSERT INTO lorem VALUES (?)');
+
+//   for (var i = 0; i < 10; i++) {
+//     stmt.run('Ipsum ' + i);
+//   }
+
+//   stmt.finalize();
+
+//   db.each('SELECT rowid AS id, info FROM lorem', function(err, row) {
+//     console.log(row.id + ': ' + row.info);
+//   });
+// });
+
 // Keep a global reference of the window object, if you don't, the window will be closed automatically when the JavaScript object is garbage collected.
 let mainWindow = null;
 
@@ -68,7 +90,7 @@ function createWindow() {
             modal: true,
           }, function (index) {
             if (index == 0)
-              app.quit();
+            myQuit();
           })
         }
       }
@@ -82,7 +104,7 @@ function createWindow() {
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     mainWindow = null;
-    app.quit();
+    myQuit();
   });
 }
 
@@ -94,10 +116,11 @@ app.on('activate', function () {
   }
 })
 
-ipc.on('close', function () {
-  app.quit();
-});
+// ipc.on('close', function () {
+//   app.quit();
+// });
 
-app.on('window-all-closed', function () {
-  app.quit()
-})
+function myQuit(){
+  db.close();
+  app.quit();
+}

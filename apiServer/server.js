@@ -44,6 +44,7 @@ app.use(function (err, req, res, next) {
 
 module.exports = function server(port) {
   let server = http.createServer(app);
+
   server.listen(port || 9000, '127.0.0.1', function () {
     let addr = server.address().address;
     let port = server.address().port
