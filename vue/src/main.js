@@ -7,6 +7,7 @@ import store from './store'
 import axios from 'axios'
 // import VueAxios from 'vue-axios'
 
+axios.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
 Vue.prototype.axios = axios;
 // Vue.use(VueAxios,axios)
 

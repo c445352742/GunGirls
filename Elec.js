@@ -56,7 +56,8 @@ function createWindow() {
       { label: 'FullScreen', role: 'togglefullscreen', accelerator: 'F4' },
       { label: 'Reload', role: 'Reload' },
       { label: 'Force Reload', role: 'Force Reload', accelerator: 'F5' },
-      { label: 'devTools', role: 'toggledevtools', accelerator: 'F10' },
+      { label: 'DevTools', role: 'toggledevtools', accelerator: 'F10' },
+      { label: 'Copy', role: 'copy', accelerator: 'CommandOrControl+c' },
       {
         label: 'Exit', accelerator: 'Esc', click: function () {
           dialog.showMessageBox({

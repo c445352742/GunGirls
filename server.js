@@ -9,22 +9,19 @@ app.set('view engine', 'html');
 app.set('views', path.join(__dirname, 'dist'));
 
 // cross origion
-// app.all('*', function(req, res, next) {
-//   // res.header("Access-Control-Allow-Origin", "*");
-//   // res.header("Access-Control-Allow-Headers", "X-Requested-With");
-//   // res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
-//   // res.header("X-Powered-By",' 3.2.1')
-//   // res.header("Content-Type", "application/json;charset=utf-8");
-//   next();
-// });
+app.all('*', function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+  res.header("X-Powered-By", ' 3.2.1')
+  res.header("Content-Type", "application/json;charset=utf-8");
+  next();
+});
 
 // resolve router
 app.use(express.static(path.join(__dirname, 'dist')));
 app.get('/api', function (req, res) {
-  res.send('index1');
-});
-app.get('/', function (req, res) {
-  res.render('index');
+  res.send({ a: 'index1' });
 });
 app.get('/noneLicensed', function (req, res) {
   res.render(path.resolve(__dirname, 'noneLicensed'));

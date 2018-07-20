@@ -1,5 +1,5 @@
 <template>
-  <div  id="app">fe
+  <div id="app">fe
     <img @click="apc" src="./assets/logo.png">
     <router-view/>
   </div>
@@ -15,21 +15,18 @@ export default {
     apc() {
       this.axios({
         method: "get",
-        url: "127.0.0.1:9000/api",
-        data: {
+        url: "http://127.0.0.1:9000/api",
+        params: {
           firstName: "Fred",
           lastName: "Flintstone"
-        },
-        // success: (s) => {
-        //   console.log(s);
-        // },
-        // error: (err) => {
-        //   console.log(err);
-        // }
-      }).then(_=>{console.log(_);}).catch(_=>{
-        console.error(_);
-      });
-      console.log(this.$store.state.count);
+        }
+      })
+        .then(a => {
+          console.log(a);
+        })
+        .catch(err => {
+          console.error(err);
+        });
     }
   }
 };
