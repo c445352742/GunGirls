@@ -1,6 +1,7 @@
 <template>
   <div id="app">fe
     <img @click="apc" src="./assets/logo.png">
+    <div @click="aa">fffffff</div>
     <router-view/>
   </div>
 </template>
@@ -11,7 +12,18 @@ export default {
   data() {
     return {};
   },
+  mounted() {
+    let self = this;
+    setTimeout(() => {
+      self.ipcRender.on("getCmd", function(event, arg) {
+        console.log(arg);
+      });
+    }, 0);
+  },
   methods: {
+    aa() {
+      this.ipcRender.send("sendCmd",{cmd:"getData",dest:"db"});
+    },
     apc() {
       this.axios({
         method: "get",

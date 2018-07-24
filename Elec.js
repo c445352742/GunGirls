@@ -17,44 +17,13 @@ const svr = require('./apiServer/server.js');
 if ('--dev' !== process.argv[2]) { svr(9000); console.log('api is running') }
 
 // db open
-const db = require('./apiServer/db')
+const DB = require('./apiServer/db')
+DB.open('admin','admin1')
 
 // Keep a global reference of the window object, if you don't, the window will be closed automatically when the JavaScript object is garbage collected.
 let mainWindow = null;
 
 function createWindow() {
-  mainWindow = new BrowserWindow({
-    width: 1280, height: 720,
-    autoHideMenuBar: false,
-    // frame: false,
-    maximizable: false,
-    fullscreen: false,
-    fullscreenable: true,
-    alwaysOnTop: false,
-    show: true,
-    resizable: false,
-  });
-  // and load the index.html of the app.
-  if ('--dev' == process.argv[2]) {
-    mainWindow.loadURL(url.format({
-      pathname: '127.0.0.1:8989',
-      protocol: 'http:',
-      slashes: true
-    }));
-  } else {
-    mainWindow.loadURL(url.format({
-      pathname: '127.0.0.1:9000',
-      protocol: 'http:',
-      slashes: true
-    }));
-  }
-
-  // 缩放设置
-  mainWindow.once('ready-to-show', function () {
-    mainWindow.show();
-    // mainWindow.webContents.setZoomFactor(license.GUI.zoomLevel);
-
-  });
   let menu = Menu.buildFromTemplate([{
     label: 'Operate',
     submenu: [
@@ -73,13 +42,48 @@ function createWindow() {
             modal: true,
           }, function (index) {
             if (index == 0)
-            myQuit();
+              myQuit();
           })
         }
       }
     ]
   }]);
   Menu.setApplicationMenu(menu);
+
+  mainWindow = new BrowserWindow({
+    width: 1280, height: 720,
+    autoHideMenuBar: false,
+    // frame: false,
+    maximizable: false,
+    fullscreen: false,
+    webPreferences: { devTools: ('--dev' == process.argv[2]) || false },
+    fullscreenable: true,
+    alwaysOnTop: false,
+    show: false,
+    resizable: false,
+  });
+
+  // 缩放设置
+  mainWindow.once('ready-to-show', function () {
+    mainWindow.show();
+    mainWindow.webContents.openDevTools();
+    // mainWindow.webContents.setZoomFactor(license.GUI.zoomLevel);
+  });
+
+  // and load the index.html of the app.
+  if ('--dev' == process.argv[2]) {
+    mainWindow.loadURL(url.format({
+      pathname: '127.0.0.1:8989',
+      protocol: 'http:',
+      slashes: true
+    }));
+  } else {
+    mainWindow.loadURL(url.format({
+      pathname: '127.0.0.1:9000',
+      protocol: 'http:',
+      slashes: true
+    }));
+  }
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
@@ -99,11 +103,12 @@ app.on('activate', function () {
   }
 })
 
-// ipc.on('close', function () {
-//   app.quit();
-// });
+ipc.on('sendCmd', function (event, arg) {
+  console.log(arg)
+  event.sender.send('getCmd','pong');
+});
 
-function myQuit(){
-  db.close();
+function myQuit() {
+  DB.close();
   app.quit();
 }

@@ -1,0 +1,12 @@
+{
+  "userList": [
+    {
+      "id": 0,
+      "name": "admin",
+      "pwd": "admin",
+      "dbIndex": null,
+      "createTime": "Tue Jul 24 2018 10:18:38 GMT+0800 (CST)"
+    }
+  ],
+  "tables": {}
+}

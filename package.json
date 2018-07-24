@@ -29,7 +29,7 @@
   "devDependencies": {
     "chalk": "^2.3.2",
     "ejs": "^2.6.1",
-    "electron": "^1.8.4",
+    "electron": "^1.8.7",
     "electron-packager": "^12.0.1",
     "express": "^4.16.3"
   }
