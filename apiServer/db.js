@@ -65,20 +65,6 @@ function db() {
     });
   }
 
-  // 创建用户
-  self.addUser = function () {
-    if (illegal) return;
-  }
-
-  // 删除用户
-  self.deleteUser = function (id) {
-    if (illegal) return;
-    // 不得删除自己
-    if (id === self.id) {
-      return;
-    }
-  }
-
   // 写
   self.set = function () {
     if (illegal) return;
@@ -103,14 +89,7 @@ function db() {
   self.close = function () {
     if (illegal) return;
     console.log('closing')
-    if (self.fileExist) {
-      // 解除占用
-      self.db.occupation = false;
-      fs.writeFileSync(path.join(__dirname, '/storage.json'), JSON.stringify(self.db), function (err) {
-        if (err) console.log(err)
-        else console.log('write database done.');
-      })
-    }
+    self.update();
   }
 
 }
