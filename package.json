@@ -22,8 +22,9 @@
   "homepage": "https://github.com/c445352742/ValkyrieVictoria#readme",
   "dependencies": {
     "axios": "^0.18.0",
+    "express-session": "^1.15.6",
     "npm": "^5.8.0",
-    "sqlite3": "^4.0.2",
+    "session-file-store": "^1.2.0",
     "vue-axios": "^2.1.1"
   },
   "devDependencies": {
