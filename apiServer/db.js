@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 function DB() {
   let self = this;
-  self.db = null;
+  self.data = null;
   self.id = null;
   self.illegal = true;
   // 打开
@@ -14,7 +14,7 @@ function DB() {
         if (err.errno === -2) {
           console.error(err.errno + ' empty original file, creating...');
           // 初始化结构体
-          let db = {
+          let data = {
             "maxId": 0,
             "userList": [{
               "id": 0,
@@ -25,7 +25,7 @@ function DB() {
             "tables": {}
           }
           // 写入结构体
-          fs.writeFileSync(path.join(__dirname, '/storage.json'), JSON.stringify(db), function (err) {
+          fs.writeFileSync(path.join(__dirname, '/storage.json'), JSON.stringify(data), function (err) {
             if (err) console.log(err)
             else console.log('write database done.');
           })
@@ -34,10 +34,10 @@ function DB() {
         return;
       }
       // 获取数据
-      self.db = JSON.parse(data);
+      self.data = JSON.parse(data);
 
       // 用户验证
-      self.db.userList.forEach(ele => {
+      self.data.userList.forEach(ele => {
         if (ele.name === name && ele.pwd === pwd) {
           self.illegal = false;
           self.id = ele.id;

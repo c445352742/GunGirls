@@ -1,8 +1,9 @@
 const router = require('express').Router();
-const db = require('./db')
 
-router.get('/', function (req, res, next) {
-  res.send({ a: db.maxId });
-})
-
-module.exports = { router: router, db: db };
+module.exports = function (db) {
+  router.get('/', function (req, res, next) {
+    console.log(db)
+    res.send({ a: db.data.maxId, b: 'sdfawfe1' });
+  })
+  return router;
+};
