@@ -8,16 +8,11 @@ function DB() {
   // 打开
   self.open = function (name, pwd) {
     console.log('open database')
-    fs.readFileSync(path.join(__dirname, '/storage.json'), function (err, data) {
-      console.log('err')
-      console.log(data)
-      console.log(err)
-      console.log('err end')
+    fs.readFile(path.join(__dirname, '/storage.json'), function (err, data) {
       if (err) {
         // 无目标文件
         if (err.errno === -2) {
           console.error(err.errno + ' empty original file, creating...');
-
           // 初始化结构体
           let db = {
             "maxId": 0,
@@ -36,25 +31,22 @@ function DB() {
           })
         }
         // 其他错误直接中断
-        console.log(err);
         return;
       }
       // 获取数据
       self.db = JSON.parse(data);
-      // 用户验证
 
-      let loggedIn = false;
+      // 用户验证
       self.db.userList.forEach(ele => {
         if (ele.name === name && ele.pwd === pwd) {
-          loggedIn = true;
+          self.illegal = false;
           self.id = ele.id;
-          return;
+          console.log('logged in');
         }
       });
       // 用户登陆错误响应
-      if (!loggedIn) {
+      if (self.illegal) {
         console.log('wrong account');
-        return;
       };
     });
   }
@@ -81,7 +73,7 @@ function DB() {
 
   // 关闭
   self.close = function () {
-    if (self.illegal) return;
+    if (self.illegal) { console.log('closing without save'); return; }
     console.log('closing')
     self.update();
   }

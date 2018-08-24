@@ -1,3 +1,3 @@
 // const s = require('./server')
 const s = require('./apiServer/server')
-s();
+s.ini(9000);

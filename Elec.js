@@ -11,14 +11,15 @@ const url = require('url');
 const ipc = electron.ipcMain;
 // license check
 const crypto = require('crypto');
-const fs = require('fs');
 
 const svr = require('./apiServer/server.js');
-if ('--dev' !== process.argv[2]) { svr(9000); console.log('api is running') }
 
-// db open
-let DB = require('./apiServer/db.js')
-DB.open('admin','admin1');
+let param2 = '--dev';
+if (param2 !== process.argv[2]) { svr.ini(9000); console.log('api is running') }
+
+// // db open
+// let DB = require('./apiServer/db.js')
+// DB.open('admin','admin1');
 
 // Keep a global reference of the window object, if you don't, the window will be closed automatically when the JavaScript object is garbage collected.
 let mainWindow = null;
@@ -105,10 +106,10 @@ app.on('activate', function () {
 
 ipc.on('sendCmd', function (event, arg) {
   console.log(arg)
-  event.sender.send('getCmd','pong');
+  event.sender.send('getCmd', 'pong');
 });
 
 function myQuit() {
-  DB.close();
+  if (param2 !== process.argv[2]) svr.quit();
   app.quit();
 }

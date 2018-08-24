@@ -1,10 +1,11 @@
 {
+  "maxId": 0,
   "userList": [
     {
       "id": 0,
       "name": "admin",
       "pwd": "admin",
-      "createTime": "Tue Jul 24 2018 10:18:38 GMT+0800 (CST)"
+      "createTime": "Fri Aug 24 2018 16:25:09 GMT+0800 (CST)"
     }
   ],
   "tables": {}

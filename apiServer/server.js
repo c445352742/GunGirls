@@ -2,7 +2,8 @@ const http = require('http');
 const express = require('express');
 const path = require('path');
 const app = express();
-const api = require('./apiRouter')
+const { router, db } = require('./apiRouter')
+
 
 // set mode engine
 app.set('views', path.join(__dirname, '../dist'));
@@ -21,7 +22,7 @@ app.all('*', function (req, res, next) {
   next();
 });
 
-app.use('/api', api);
+app.use('/api', router);
 app.get('/noneLicensed', function (req, res) {
   res.render(path.resolve(__dirname, 'noneLicensed'));
 });
@@ -42,12 +43,18 @@ app.use(function (err, req, res, next) {
   res.send('error');
 });
 
-module.exports = function server(port) {
+function server() {
   let server = http.createServer(app);
-
-  server.listen(port || 9000, '127.0.0.1', function () {
-    let addr = server.address().address;
-    let port = server.address().port
-    console.log('Api Server is Listening on ' + addr + ':' + port);
-  });
+  this.ini = function (port) {
+    server.listen(port || 9000, '127.0.0.1', function () {
+      db.open('admin', 'admin')
+      let addr = server.address().address;
+      let port = server.address().port
+      console.log('Api Server is Listening on ' + addr + ':' + port);
+    });
+  }
+  this.quit = function () {
+    db.close();
+  }
 }
+module.exports = new server;
