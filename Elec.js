@@ -17,8 +17,8 @@ const svr = require('./apiServer/server.js');
 if ('--dev' !== process.argv[2]) { svr(9000); console.log('api is running') }
 
 // db open
-const DB = require('./apiServer/db')
-DB.open('admin','admin1')
+let DB = require('./apiServer/db.js')
+DB.open('admin','admin1');
 
 // Keep a global reference of the window object, if you don't, the window will be closed automatically when the JavaScript object is garbage collected.
 let mainWindow = null;
