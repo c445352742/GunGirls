@@ -13,9 +13,9 @@ Vue.prototype.axios = axios;
 
 Vue.config.productionTip = false
 
-setTimeout(() => {
-  Vue.prototype.ipcRender = ipcRender;
-}, 0)
+// setTimeout(() => {
+//   Vue.prototype.ipcRender = ipcRender;
+// }, 0)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

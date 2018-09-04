@@ -8,7 +8,6 @@ const {
 // if (require('electron-squirrel-startup')) return;
 const path = require('path');
 const url = require('url');
-const ipc = electron.ipcMain;
 // license check
 const crypto = require('crypto');
 
@@ -103,11 +102,6 @@ app.on('activate', function () {
     createWindow()
   }
 })
-
-ipc.on('sendCmd', function (event, arg) {
-  console.log(arg)
-  event.sender.send('getCmd', 'pong');
-});
 
 function myQuit() {
   if (param2 !== process.argv[2]) svr.quit();

@@ -6,30 +6,35 @@ const db = require('./db');
 const router = require('./apiRouter')(db);
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
+const bodyparser = require('body-parser');
 
 // set mode engine
 app.set('views', path.join(__dirname, '../dist'));
 app.engine('.html', require('ejs').__express);
 app.set('view engine', 'html');
 
+app.use(bodyparser.json()); // 使用bodyparder中间件，
+app.use(bodyparser.urlencoded({ extended: true }));
+
 // resolve router
-app.use(express.static(path.join(__dirname, '../dist')));
-// cross origion
 app.all('*', function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
   res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
-  res.header("X-Powered-By", ' 3.2.1')
+  res.header("X-Powered-By", '3.2.1');
   res.header("Content-Type", "application/json;charset=utf-8");
   next();
 });
+
+app.use(express.static(path.join(__dirname, '../dist')));
+// cross origion
 
 app.use(session({
   name: 'sessionKey',
   secret: 'mysigniture',  // 用来对session id相关的cookie进行签名
   store: new FileStore(),  // 本地存储session（文本文件，也可以选择其他store，比如redis的）
   saveUninitialized: false,  // 是否自动保存未初始化的会话，建议false
-  resave: false,  // 是否每次都重新保存会话，建议false
+  resave: true,  // 是否每次都重新保存会话，建议false
   cookie: {
     maxAge: 24 * 3600 * 1000  // 有效期，单位是毫秒
   }
