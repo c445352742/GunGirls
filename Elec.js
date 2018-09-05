@@ -54,19 +54,22 @@ function createWindow() {
     width: 1280, height: 720,
     autoHideMenuBar: false,
     // frame: false,
+    minHeight: 720,
+    minWidth: 1280,
     maximizable: false,
+    useContentSize:true,
     fullscreen: false,
-    webPreferences: { devTools: ('--dev' == process.argv[2]) || false },
     fullscreenable: true,
     alwaysOnTop: false,
     show: false,
-    resizable: false,
+    resizable: true,
   });
 
   // 缩放设置
   mainWindow.once('ready-to-show', function () {
     mainWindow.show();
     mainWindow.webContents.openDevTools();
+    mainWindow.setFullScreenable(true)
     // mainWindow.webContents.setZoomFactor(license.GUI.zoomLevel);
   });
 
