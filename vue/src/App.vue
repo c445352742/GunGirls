@@ -34,7 +34,6 @@ export default {
   color: #333333;
   perspective-origin: center center;
   overflow: hidden;
-  background-color: #4f4f4f;
 }
 
 .route-leave-active {

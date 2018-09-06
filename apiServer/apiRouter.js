@@ -2,7 +2,10 @@ const router = require('express').Router();
 
 module.exports = function (db) {
   router.get('/', function (req, res, next) {
-    res.send({ a: db.data.maxId, b: 'sdfawfe1' });
+    let a = db.get("login")
+    console.log(db.get("login"))
+    console.log('{a:1}')
+    res.send({ status: "success", data: a });
   })
   return router;
 };

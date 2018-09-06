@@ -1,12 +1,18 @@
 {
-  "maxId": 0,
   "userList": [
     {
       "id": 0,
       "name": "admin",
       "pwd": "admin",
+      "packName":"a",
       "createTime": "Fri Aug 24 2018 16:25:09 GMT+0800 (CST)"
     }
   ],
-  "tables": {}
+  "package":{
+    "a":[{
+      "id":0,
+      "name":"admin",
+      "amount":1
+    }]
+  }
 }
