@@ -1,0 +1,52 @@
+.btn {
+  width: 130px;
+  height: 40px;
+  padding: 10px 24px;
+  color: #ffffff;
+  border-radius: 4px;
+  border: none;
+  font-size: 16px;
+  box-sizing: border-box;
+  display: inline-block;
+  background-color:#749a02;
+  cursor: pointer;
+  line-height: 20px;
+  font-weight: bold;
+  margin:0 5px;
+}
+.btn:hover{
+  background-color:#91bd09;
+  box-shadow: 0 0 18px #91bd09;
+}
+.orange{
+  background-color:#fc9200;
+}
+.orange:hover{
+  background-color:#ffb515;
+  box-shadow: 0 0 18px #ffb515;
+}
+.blue{
+  background-color:#007d9a;
+}
+.blue:hover{
+  background-color:#2daebf;
+  box-shadow: 0 0 18px #2daebf;
+}
+.red{
+  background-color:#bc330d;
+}
+.red:hover{
+  background-color:#e33100;
+  box-shadow: 0 0 18px #e33100;
+}
+input{
+  border: none;
+  border-radius: 4px;
+  height: 24px;
+  line-height: 24px;
+  font-size: 14px;
+}
+input:focus{
+  box-shadow: 0 0 8px #999999;
+  outline: none;
+}

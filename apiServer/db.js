@@ -54,8 +54,7 @@ function DB() {
   self.get = function (str) {
     let s = undefined;
     if (str === "login") {
-      s = self.data.userList;
-      return JSON.stringify(s);
+      return self.data.userList;
     }
     return "unexpected param";
   }

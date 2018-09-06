@@ -16,9 +16,11 @@ export default {
 </script>
 
 <style>
+@import "./assets/style.css";
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 #app {
   position: absolute;
@@ -26,7 +28,7 @@ export default {
   top: 0;
   width: 100vw;
   height: 100vh;
-  font-family: "微软雅黑";
+  font-family: "Arial";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

@@ -8,6 +8,7 @@ import axios from 'axios'
 // import VueAxios from 'vue-axios'
 
 axios.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
+axios.defaults.headers.get['Content-Type'] = 'application/json; charset=utf-8';
 Vue.prototype.ajax = function (ajaxParam) {
   axios({
     method: ajaxParam.method || "get",
@@ -18,7 +19,7 @@ Vue.prototype.ajax = function (ajaxParam) {
       ajaxParam.success(suc.data)
     })
     .catch(err => {
-      ajaxParam.error(err)
+      ajaxParam.error ? ajaxParam.error(err) : conosle.log(err)
     });
 }
 // Vue.use(VueAxios,axios)
