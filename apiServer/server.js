@@ -7,6 +7,7 @@ const router = require('./apiRouter')(db);
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const bodyparser = require('body-parser');
+const multer = require('multer');
 
 // set mode engine
 app.set('views', path.join(__dirname, '../dist'));
@@ -36,11 +37,11 @@ app.use(session({
   saveUninitialized: false,  // 是否自动保存未初始化的会话，建议false
   resave: true,  // 是否每次都重新保存会话，建议false
   cookie: {
-    maxAge:  3600 * 1000  // 有效期，单位是毫秒
+    maxAge: 3600 * 1000  // 有效期，单位是毫秒
   }
 }));
 app.use('/api', router);
-app.get('/noneLicensed', function (req, res) {
+app.get('/notLicensed', function (req, res) {
   res.render(path.resolve(__dirname, 'noneLicensed'));
 });
 // catch 404 and forward to error handler
@@ -57,7 +58,8 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.send('error');
+  console.log((err))
+  res.send(err.message);
 });
 
 function server() {

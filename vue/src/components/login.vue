@@ -22,24 +22,24 @@ export default {
   data() {
     return {
       name: "a",
-      pwd: ""
+      pwd: "sfd"
     };
   },
   methods: {
     submit() {
       let self = this;
       this.ajax({
-        method: "post",
-        url: "http://127.0.0.1:9000/api/login",
+        method: "get",
+        url: "http://127.0.0.1:9000/api",
         params: {
           name: self.name,
           pwd: encrypt.md5(self.pwd)
         },
         success(result) {
-          console.log(e);
-        },
-        error(e) {
-          console.log(e);
+          if (result.status === "success") {
+            console.log(result);
+          } else {
+          }
         }
       });
     }
