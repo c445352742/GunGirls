@@ -15,15 +15,17 @@ app.engine('.html', require('ejs').__express);
 app.set('view engine', 'html');
 
 app.use(bodyparser.json()); // 使用bodyparder中间件，
-app.use(bodyparser.urlencoded({ extended: true }));
+app.use(bodyparser.urlencoded({ extended: false }));
 
 // resolve router
 app.all('*', function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  res.header("Access-Control-Allow-Origin", req.headers.origin);
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header('Access-Control-Allow-Credentials', 'true');
   res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
   res.header("X-Powered-By", '3.2.1');
   res.header("Content-Type", "application/json;charset=utf-8");
+  // request();
   next();
 });
 
@@ -44,22 +46,19 @@ app.use('/api', router);
 app.get('/notLicensed', function (req, res) {
   res.render(path.resolve(__dirname, 'noneLicensed'));
 });
-// catch 404 and forward to error handler
+
 app.use(function (req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
+  res.status(404).send('404 NOT FOUND');
 });
 
 // error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
-  res.locals.message = err.message;
+  res.locals.message = err.message + 1;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
-  res.status(err.status || 500);
-  console.log((err))
-  res.send(err.message);
+  res.status(err.status || 500).send(err.message);
 });
 
 function server() {

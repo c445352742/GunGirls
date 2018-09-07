@@ -29,9 +29,9 @@ export default {
     submit() {
       let self = this;
       this.ajax({
-        method: "get",
-        url: "http://127.0.0.1:9000/api",
-        params: {
+        method: "post",
+        url: "http://127.0.0.1:9000/api/login",
+        data: {
           name: self.name,
           pwd: encrypt.md5(self.pwd)
         },
