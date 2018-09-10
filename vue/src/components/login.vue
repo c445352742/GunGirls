@@ -1,6 +1,6 @@
 <template>
   <div class="cover">
-    <div class="login">
+    <div class="login" v-if="!registerShow">
       <h1>Login</h1>
       <div class="line">
         <div class="t">用户名:</div><input type="text" v-model="name">
@@ -9,10 +9,27 @@
         <div class="t">密码:</div><input type="password" v-model="pwd">
       </div>
       <div class="line btns">
-        <div class="btn orange">Register</div>
+        <div class="btn orange" @click="goReg">Register</div>
         <div class="btn blue" @click="submit">SignIn</div>
       </div>
     </div>
+
+    <div class="register" v-if="registerShow">
+      <h1>Register</h1>
+      <div class="line">
+        <div class="t">用户名:</div><input type="text" v-model="name">
+      </div>
+      <div class="line">
+        <div class="t">密码:</div><input type="password" v-model="pwd">
+      </div>
+      <div class="line">
+        <div class="t">确认密码:</div><input type="password" v-model="confirmpwd">
+      </div>
+      <div class="line btns">
+        <div class="btn orange" @click="reg">Register</div>
+      </div>
+    </div>
+  </div>
   </div>
 </template>
 
@@ -21,11 +38,38 @@ const encrypt = require("@/assets/md5.js");
 export default {
   data() {
     return {
+      confirmpwd: "",
+      registerShow: false,
       name: "a",
       pwd: "sfd"
     };
   },
   methods: {
+    goReg() {
+      this.registerShow = true;
+    },
+    reg() {
+      let self = this;
+      if(this.pwd!==this.confirmpwd){
+        alert('Consisitency check failed!');
+        return;
+      }
+      this.ajax({
+        method: "post",
+        url: "http://127.0.0.1:9000/api/register",
+        data: {
+          name: self.name,
+          pwd: encrypt.md5(self.pwd)
+        },
+        success(result) {
+          if (result.status === "success") {
+            console.log(result);
+          } else {
+            console.error(result);
+          }
+        }
+      });
+    },
     submit() {
       let self = this;
       this.ajax({
@@ -70,11 +114,21 @@ export default {
   animation: down 0.5s ease-out forwards;
   padding: 20px;
 }
+.register {
+  width: 400px;
+  height: 280px;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.7);
+  overflow: hidden;
+  position: relative;
+  animation: down 0.5s ease-out forwards;
+  padding: 20px;
+}
 h1 {
   margin: 10px 0 20px;
 }
 .t {
-  width: 60px;
+  width: 80px;
   text-align: right;
   display: inline-block;
   margin-right: 10px;
@@ -83,8 +137,9 @@ h1 {
   margin-bottom: 10px;
 }
 .line input {
-  width: 200px;
+  width: 250px;
   padding: 0 10px;
+  margin-right: 15px;
 }
 .btns {
   position: absolute;

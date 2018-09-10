@@ -20,6 +20,7 @@ app.use(bodyparser.urlencoded({ extended: false }));
 // resolve router
 app.all('*', function (req, res, next) {
   res.header("Access-Control-Allow-Origin", req.headers.origin);
+  console.log(req.headers.origin)
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   res.header('Access-Control-Allow-Credentials', 'true');
   res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
@@ -39,7 +40,7 @@ app.use(session({
   saveUninitialized: false,  // 是否自动保存未初始化的会话，建议false
   resave: true,  // 是否每次都重新保存会话，建议false
   cookie: {
-    maxAge: 3600 * 1000  // 有效期，单位是毫秒
+    maxAge: 1 * 3600 * 1000   // 有效期，单位是毫秒
   }
 }));
 app.use('/api', router);

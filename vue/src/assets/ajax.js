@@ -62,7 +62,7 @@ function Ajax(params) {
     // console.log(data);
     // data = null;
 
-    xhr.send(data);
+    xhr.send(JSON.stringify(data));
   }
 
   // 处理返回数据
