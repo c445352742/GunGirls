@@ -1,6 +1,6 @@
 <template>
   <div class="cover">
-    <div class="login" v-if="!registerShow">
+    <div class="login" :class="{'move':!registerShow}" v-show="!registerShow">
       <h1>Login</h1>
       <div class="line">
         <div class="t">用户名:</div><input type="text" v-model="name">
@@ -9,12 +9,11 @@
         <div class="t">密码:</div><input type="password" v-model="pwd">
       </div>
       <div class="line btns">
-        <div class="btn orange" @click="goReg">Register</div>
+        <div class="btn orange" @click="toggle">Register</div>
         <div class="btn blue" @click="submit">SignIn</div>
       </div>
     </div>
-
-    <div class="register" v-if="registerShow">
+    <div class="register" :class="{'move':registerShow}" v-show="registerShow">
       <h1>Register</h1>
       <div class="line">
         <div class="t">用户名:</div><input type="text" v-model="name">
@@ -27,6 +26,7 @@
       </div>
       <div class="line btns">
         <div class="btn orange" @click="reg">Register</div>
+        <div class="btn blue" @click="toggle">SignIn</div>
       </div>
     </div>
   </div>
@@ -45,13 +45,13 @@ export default {
     };
   },
   methods: {
-    goReg() {
-      this.registerShow = true;
+    toggle() {
+      this.registerShow = !this.registerShow;
     },
     reg() {
       let self = this;
-      if(this.pwd!==this.confirmpwd){
-        alert('Consisitency check failed!');
+      if (this.pwd !== this.confirmpwd) {
+        alert("Consisitency check failed!");
         return;
       }
       this.ajax({
@@ -111,18 +111,19 @@ export default {
   background-color: rgba(255, 255, 255, 0.7);
   overflow: hidden;
   position: relative;
-  animation: down 0.5s ease-out forwards;
   padding: 20px;
 }
-.register {
+.register{
   width: 400px;
   height: 280px;
   border-radius: 4px;
   background-color: rgba(255, 255, 255, 0.7);
   overflow: hidden;
   position: relative;
-  animation: down 0.5s ease-out forwards;
   padding: 20px;
+}
+.move{
+  animation: down .5s ease-out forwards;
 }
 h1 {
   margin: 10px 0 20px;

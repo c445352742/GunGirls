@@ -14,7 +14,28 @@ function DB() {
         if (err.errno === -2) {
           console.error(err.errno + ' empty original file, creating...');
           // 初始化结构体
-          let data = {}
+          let data = {
+            "userList": [
+              {
+                // "id": 0,
+                // "name": "admin",
+                // "pwd": "admin",
+                // "createTime": "Fri Aug 24 2018 16:25:09 GMT+0800 (CST)"
+              }
+            ],
+            "personal": {
+              // "admin": {
+              //   "package": [
+              //     {
+              //       "id": 0,
+              //       "name": "admin",
+              //       "amount": 1
+              //     }
+              //   ]
+              // }
+            }
+          }
+
           // 写入结构体
           fs.writeFileSync(path.join(__dirname, '/storage.json'), JSON.stringify(data), function (err) {
             if (err) console.log(err)
