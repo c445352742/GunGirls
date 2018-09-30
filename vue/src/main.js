@@ -5,11 +5,12 @@ import App from './App'
 import router from './router.js'
 import store from './store'
 import ajax from '@/assets/ajax'
+import toast from '@/assets/plugin/toast/index'
 // import VueAxios from 'vue-axios'
 
 
 Vue.prototype.ajax = ajax;
-// Vue.use(VueAxios,axios)
+Vue.use(toast);
 
 Vue.config.productionTip = false
 

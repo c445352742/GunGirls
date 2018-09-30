@@ -2,77 +2,113 @@ const fs = require("fs");
 const path = require("path");
 function DB() {
   let self = this;
+  let temp = true;
   self.data = null;
-  self.euqip = require('./data/equip.js');
+  self.equip = require('./data/equip.js');
   self.id = null;
+  self.illegal = false;
+
   // 打开
-  self.open = function (name, pwd) {
+  self.open = function () {
     console.log('open database')
-    fs.readFile(path.join(__dirname, '/storage.json'), function (err, data) {
+    // 初始化结构体
+    let dataIni = {
+      "userList": [],
+      "personal": {}
+    }
+    fs.readFile(path.join(__dirname, '/data/storage.json'), function (err, data) {
       if (err) {
         // 无目标文件
         if (err.errno === -2) {
           console.error(err.errno + ' empty original file, creating...');
-          // 初始化结构体
-          let data = {
-            "userList": [
-              {
-                // "id": 0,
-                // "name": "admin",
-                // "pwd": "admin",
-                // "createTime": "Fri Aug 24 2018 16:25:09 GMT+0800 (CST)"
-              }
-            ],
-            "personal": {
-              // "admin": {
-              //   "package": [
-              //     {
-              //       "id": 0,
-              //       "name": "admin",
-              //       "amount": 1
-              //     }
-              //   ]
-              // }
-            }
-          }
-
           // 写入结构体
-          fs.writeFileSync(path.join(__dirname, '/storage.json'), JSON.stringify(data), function (err) {
-            if (err) console.log(err)
-            else console.log('write database done.');
+          fs.writeFileSync(path.join(__dirname, '/data/storage.json'), JSON.stringify(dataIni), function (err) {
+            console.log('test')
+            if (err) { throw err }
           })
+          console.log('write database done.');
+          temp && self.open();
+          temp = false;
+        } else {
+          // 其他错误直接中断
+          self.illegal = true;
+          console.log(err + ' \r\nopen failed. please check ')
+          return;
         }
-        // 其他错误直接中断
-        return;
       }
-      // 获取数据
-      self.data = JSON.parse(data);
+      else {
+        if (data.indexOf('userList') >= 0) {
+          // 获取数据
+          self.illegal = false;
+          self.data = JSON.parse(data);
+        }
+        else {
+          // 写入结构体
+          fs.writeFileSync(path.join(__dirname, '/data/storage.json'), JSON.stringify(dataIni), function (err) {
+            console.log('test')
+            if (err) { throw err }
+          })
+          console.log('write database done.');
+        }
+      }
     });
   }
 
   // 写
   self.set = function () {
-    // "userList": [
-    //   {
-    //     "id": 0,
-    //     "name": "admin",
-    //     "pwd": "admin",
-    //     "packName":"a",
-    //     "createTime": "Fri Aug 24 2018 16:25:09 GMT+0800 (CST)"
-    //   }
-    // ],
-    // "package":{
-    //   "a":[{
-    //     "id":0,
-    //     "name":"admin",
-    //     "amount":1
-    //   }]
+    if (self.illegal) {
+      return 'database illegal, please check';
+    }
+    //"personal":        
+    //  "admin": {
+    //   "package": [
+    //     {
+    //       "id": 0,
+    //       "name": "admin",
+    //       "amount": 1
+    //     }
+    //   ]
     // }
     self.update();
   }
 
+  self.create = function (param, callback) {
+    //accept [param] object with two parameters, name&passwrod
+    //callback only executed when failed
+    if (self.illegal) {
+      return 'database illegal, please check';
+    }
+    // check already exist account
+    for (let i in self.data.userList) {
+      if (self.data.userList[i].name === param.name) {
+        callback && callback('account exist');
+        return;
+      }
+    }
+
+    if (param.name && param.pwd) {
+      self.data.userList.push({
+        id: Date.parse(new Date()) + '#' + (Math.random() * 100000).toString().substr(0, 5),
+        name: param.name,
+        pwd: param.pwd,
+        createTime: new Date().toString()
+      })
+      self.data.personal[param.name] = {
+        info: 0,
+        package: []
+      }
+
+      if (!self.update()) {
+        callback && callback('save error');
+      }
+    }
+  }
+
   // 读
   self.get = function (str) {
+    if (self.illegal) {
+      return 'database illegal, please check';
+    }
     let s = undefined;
     if (str === "login") {
       return self.data.userList;
@@ -82,14 +118,22 @@ function DB() {
 
   // 更新文件
   self.update = function () {
-    fs.writeFileSync(path.join(__dirname, '/storage.json'), JSON.stringify(self.db), function (err) {
-      if (err) console.log(err)
+    if (self.illegal) {
+      return 'database illegal, please check';
+    }
+    let err = false;
+    fs.writeFileSync(path.join(__dirname, '/data/storage.json'), JSON.stringify(self.data), function (err) {
+      if (err) { err = true; console.log(err) }
       else console.log('write database done.');
     })
+    return !err;
   }
 
   // 关闭
   self.close = function () {
+    if (self.illegal) {
+      return 'database illegal, please check';
+    }
     console.log('closing')
     self.update();
   }

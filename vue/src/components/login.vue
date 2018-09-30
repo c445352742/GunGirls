@@ -5,32 +5,32 @@
       <div class="line">
         <div class="t">用户名:</div><input type="text" v-model="name">
       </div>
-      <div class="line">
-        <div class="t">密码:</div><input type="password" v-model="pwd">
+        <div class="line">
+          <div class="t">密码:</div><input type="password" v-model="pwd">
       </div>
-      <div class="line btns">
-        <div class="btn orange" @click="toggle">Register</div>
-        <div class="btn blue" @click="submit">SignIn</div>
+          <div class="line btns">
+            <div class="btn orange" @click="toggle">Register</div>
+            <div class="btn blue" @click="submit">SignIn</div>
+          </div>
+        </div>
+        <div class="register" :class="{'move':registerShow}" v-show="registerShow">
+          <h1>Register</h1>
+          <div class="line">
+            <div class="t">用户名:</div><input type="text" v-model="name">
       </div>
-    </div>
-    <div class="register" :class="{'move':registerShow}" v-show="registerShow">
-      <h1>Register</h1>
-      <div class="line">
-        <div class="t">用户名:</div><input type="text" v-model="name">
+            <div class="line">
+              <div class="t">密码:</div><input type="password" v-model="pwd">
       </div>
-      <div class="line">
-        <div class="t">密码:</div><input type="password" v-model="pwd">
+              <div class="line">
+                <div class="t">确认密码:</div><input type="password" v-model="confirmpwd">
       </div>
-      <div class="line">
-        <div class="t">确认密码:</div><input type="password" v-model="confirmpwd">
-      </div>
-      <div class="line btns">
-        <div class="btn orange" @click="reg">Register</div>
-        <div class="btn blue" @click="toggle">SignIn</div>
-      </div>
-    </div>
-  </div>
-  </div>
+                <div class="line btns">
+                  <div class="btn orange" @click="reg">Register</div>
+                  <div class="btn blue" @click="toggle">SignIn</div>
+                </div>
+              </div>
+            </div>
+          </div>
 </template>
 
 <script>
@@ -41,8 +41,11 @@ export default {
       confirmpwd: "",
       registerShow: false,
       name: "a",
-      pwd: "sfd"
+      pwd: "123"
     };
+  },
+  mounted(){
+    this.$tip({});
   },
   methods: {
     toggle() {
@@ -83,6 +86,12 @@ export default {
           if (result.status === "success") {
             console.log(result);
           } else {
+            if (result.errCode === "pwdErr") {
+              alert("密码错误");
+            }
+            if (result.errCode === "noAcc") {
+              alert("账号不存在");
+            }
           }
         }
       });
@@ -113,7 +122,7 @@ export default {
   position: relative;
   padding: 20px;
 }
-.register{
+.register {
   width: 400px;
   height: 280px;
   border-radius: 4px;
@@ -122,8 +131,8 @@ export default {
   position: relative;
   padding: 20px;
 }
-.move{
-  animation: down .5s ease-out forwards;
+.move {
+  animation: down 0.5s ease-out forwards;
 }
 h1 {
   margin: 10px 0 20px;

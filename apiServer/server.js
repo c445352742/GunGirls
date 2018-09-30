@@ -20,7 +20,6 @@ app.use(bodyparser.urlencoded({ extended: false }));
 // resolve router
 app.all('*', function (req, res, next) {
   res.header("Access-Control-Allow-Origin", req.headers.origin);
-  console.log(req.headers.origin)
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   res.header('Access-Control-Allow-Credentials', 'true');
   res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
@@ -66,7 +65,6 @@ function server() {
   let server = http.createServer(app);
   this.ini = function (port) {
     server.listen(port || 9000, '127.0.0.1', function () {
-      db.open('admin', 'admin')
       let addr = server.address().address;
       let port = server.address().port
       console.log('Api Server is Listening on ' + addr + ':' + port);

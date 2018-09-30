@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <transition name="route" mode="out-in">
-      <router-view/>
+      <router-view />
     </transition>
   </div>
 </template>
@@ -11,6 +11,24 @@ export default {
   name: "App",
   data() {
     return {};
+  },
+  mounted() {
+    (function(doc, win) {
+      var docEl = doc.documentElement,
+        resizeEvt =
+          "orientationchange" in window ? "orientationchange" : "resize",
+        recalc = function() {
+          var clientWidth = docEl.clientWidth;
+          if (!clientWidth) return;
+          if (docEl.clientWidth / 16 > docEl.clientHeight / 9) {
+            clientWidth = Math.max(1200, (docEl.clientHeight * 16) / 9);
+          }
+          docEl.style.fontSize = 10 * (clientWidth / 750) + "px";
+        };
+      if (!doc.addEventListener) return;
+      win.addEventListener(resizeEvt, recalc, false);
+      doc.addEventListener("DOMContentLoaded", recalc, false);
+    })(document, window);
   }
 };
 </script>
