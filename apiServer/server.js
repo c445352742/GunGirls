@@ -65,6 +65,7 @@ function server() {
   let server = http.createServer(app);
   this.ini = function (port) {
     server.listen(port || 9000, '127.0.0.1', function () {
+      db.open();
       let addr = server.address().address;
       let port = server.address().port
       console.log('Api Server is Listening on ' + addr + ':' + port);
