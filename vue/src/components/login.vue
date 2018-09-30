@@ -3,34 +3,34 @@
     <div class="login" :class="{'move':!registerShow}" v-show="!registerShow">
       <h1>Login</h1>
       <div class="line">
-        <div class="t">用户名:</div><input type="text" v-model="name">
+        <div class="t">用户名:</div><input type="text" v-model="name"></input>
       </div>
-        <div class="line">
-          <div class="t">密码:</div><input type="password" v-model="pwd">
+      <div class="line">
+        <div class="t">密码:</div><input type="password" v-model="pwd"/></input>
       </div>
-          <div class="line btns">
-            <div class="btn orange" @click="toggle">Register</div>
-            <div class="btn blue" @click="submit">SignIn</div>
-          </div>
-        </div>
-        <div class="register" :class="{'move':registerShow}" v-show="registerShow">
-          <h1>Register</h1>
-          <div class="line">
-            <div class="t">用户名:</div><input type="text" v-model="name">
+      <div class="line btns">
+        <div class="btn orange" @click="toggle">Register</div>
+        <div class="btn blue" @click="submit">SignIn</div>
       </div>
-            <div class="line">
-              <div class="t">密码:</div><input type="password" v-model="pwd">
+    </div>
+    <div class="register" :class="{'move':registerShow}" v-show="registerShow">
+      <h1>Register</h1>
+      <div class="line">
+        <div class="t">用户名:</div><input type="text" v-model="name"></input>
       </div>
-              <div class="line">
-                <div class="t">确认密码:</div><input type="password" v-model="confirmpwd">
+      <div class="line">
+        <div class="t">密码:</div><input type="password" v-model="pwd"></input>
       </div>
-                <div class="line btns">
-                  <div class="btn orange" @click="reg">Register</div>
-                  <div class="btn blue" @click="toggle">SignIn</div>
-                </div>
-              </div>
-            </div>
-          </div>
+      <div class="line">
+        <div class="t">确认密码:</div><input type="password" v-model="confirmpwd"></input>
+      </div>
+      <div class="line btns">
+        <div class="btn orange" @click="reg">Register</div>
+        <div class="btn blue" @click="toggle">SignIn</div>
+      </div>
+    </div>
+    <div @click="s" class="btn orange">safwe</div>
+  </div>
 </template>
 
 <script>
@@ -44,10 +44,10 @@ export default {
       pwd: "123"
     };
   },
-  mounted(){
-    this.$tip({});
-  },
   methods: {
+    s() {
+      this.$tip({});
+    },
     toggle() {
       this.registerShow = !this.registerShow;
     },

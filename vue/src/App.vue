@@ -21,8 +21,9 @@ export default {
           var clientWidth = docEl.clientWidth;
           if (!clientWidth) return;
           if (docEl.clientWidth / 16 > docEl.clientHeight / 9) {
-            clientWidth = Math.max(1200, (docEl.clientHeight * 16) / 9);
+            clientWidth = (docEl.clientHeight * 16) / 9;
           }
+          clientWidth = Math.max(1200, clientWidth);
           docEl.style.fontSize = 10 * (clientWidth / 750) + "px";
         };
       if (!doc.addEventListener) return;
