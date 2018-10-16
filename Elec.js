@@ -69,7 +69,7 @@ function createWindow() {
   mainWindow.once('ready-to-show', function () {
     mainWindow.show();
     mainWindow.webContents.openDevTools();
-    mainWindow.setFullScreenable(true)
+    mainWindow.setFullScreenable(true);
     // mainWindow.webContents.setZoomFactor(license.GUI.zoomLevel);
   });
 
@@ -78,7 +78,7 @@ function createWindow() {
     mainWindow.loadURL(url.format({
       pathname: '127.0.0.1:8989',
       protocol: 'http:',
-      slashes: true
+      slashes: true 
     }));
   } else {
     mainWindow.loadURL(url.format({

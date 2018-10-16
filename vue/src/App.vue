@@ -3,6 +3,8 @@
     <transition name="route" mode="out-in">
       <router-view />
     </transition>
+
+    <div id='toast'></div>
   </div>
 </template>
 
@@ -26,6 +28,7 @@ export default {
           clientWidth = Math.max(1200, clientWidth);
           docEl.style.fontSize = 10 * (clientWidth / 750) + "px";
         };
+      //rem为16px
       if (!doc.addEventListener) return;
       win.addEventListener(resizeEvt, recalc, false);
       doc.addEventListener("DOMContentLoaded", recalc, false);

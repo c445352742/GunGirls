@@ -6,10 +6,10 @@
         <div class="t">用户名:</div><input type="text" v-model="name"></input>
       </div>
       <div class="line">
-        <div class="t">密码:</div><input type="password" v-model="pwd"/></input>
+        <div class="t">密码:</div><input type="password" v-model="pwd" /></input>
       </div>
       <div class="line btns">
-        <div class="btn orange" @click="toggle">Register</div>
+        <div class="btn orange" @click="toggle">to Register</div>
         <div class="btn blue" @click="submit">SignIn</div>
       </div>
     </div>
@@ -26,10 +26,9 @@
       </div>
       <div class="line btns">
         <div class="btn orange" @click="reg">Register</div>
-        <div class="btn blue" @click="toggle">SignIn</div>
+        <div class="btn blue" @click="toggle">to SignIn</div>
       </div>
     </div>
-    <div @click="s" class="btn orange">safwe</div>
   </div>
 </template>
 
@@ -45,9 +44,6 @@ export default {
     };
   },
   methods: {
-    s() {
-      this.$tip({});
-    },
     toggle() {
       this.registerShow = !this.registerShow;
     },
@@ -66,9 +62,20 @@ export default {
         },
         success(result) {
           if (result.status === "success") {
-            console.log(result);
+            self.$tip({
+              class: "msg",
+              text: "注册成功，请登录",
+              time: 1000,
+              callback: () => {
+                self.toggle();
+              }
+            });
           } else {
-            console.error(result);
+            self.$tip({
+              class: "msg",
+              text: result.data.msg,
+              time: 1000
+            });
           }
         }
       });
@@ -84,13 +91,28 @@ export default {
         },
         success(result) {
           if (result.status === "success") {
-            console.log(result);
+            self.$tip({
+              class: "msg",
+              text: "登录成功",
+              time: 1000,
+              callback: () => {
+                self.$router.push('/home')
+              }
+            });
           } else {
             if (result.errCode === "pwdErr") {
-              alert("密码错误");
+              self.$tip({
+                class: "msg",
+                text: "密码错误",
+                time: 1000
+              });
             }
             if (result.errCode === "noAcc") {
-              alert("账号不存在");
+              self.$tip({
+                class: "msg",
+                text: "账号不存在",
+                time: 1000
+              });
             }
           }
         }

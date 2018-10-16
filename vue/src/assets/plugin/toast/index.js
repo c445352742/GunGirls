@@ -1,36 +1,31 @@
 import box from './temp'
-let $vm;
+let $vm = null;
 export default {
   install: function (Vue) {
     Vue.prototype.$tip = function (param) {
       let cfg = {
         class: param.class || 'msg',// msg || dialog
         type: param.type || 'info',// info || warn || err || success
-        title: param.title || '',
-        text: param.text || '',
-        btnAye: {
-          callback: param.btnYes || undefined
+        text: param.text || 'default text',
+        time: 2000,
+        show: true,
+        callback: () => {
+          param.callback && param.callback();
         },
-        btnNay: {
-          callback: param.btnNo || undefined
+        btnYes: () => {
+          param.btnYes && param.btnYes();
         },
-        btnCancel: {
-          callback: param.btnCancel || undefined
+        btnNo: () => {
+          param.btnNo && param.btnNo();
         }
       }
-      if (!$vm) {
-        let box = Vue.extend(box);
-        let div1 = document.createElement('div')
-        document.getElementsByClassName('view')[0].appendChild(div1);
-        setTimeout(() => {
-          $vm = new box();
-          $vm.$mount(div1);
-          $vm.param = cfg;
-        }, 1000)
-
-
-        console.log('exe 1')
+      if ($vm == null) {
+        let div = Vue.extend(box);
+        $vm = new div();
+        $vm.$mount('#toast');
       }
+      $vm.props = cfg;
+      $vm.ini();
     }
   }
 }

@@ -81,7 +81,7 @@ function DB() {
     // check already exist account
     for (let i in self.data.userList) {
       if (self.data.userList[i].name === param.name) {
-        callback && callback('account exist');
+        callback && callback('account already exist');
         return;
       }
     }
