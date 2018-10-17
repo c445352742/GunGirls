@@ -1,10 +1,25 @@
 <template>
   <div class="view">
-    <div class="areas"></div>
-    <div class="self"></div>
-    <div class="wrap">
-      <div class="btn blue" @click="">主页</div>
+    <div class="info">
+      <div class="left">
+        <div class="lv">ds. 1</div>
+        <div class="txt">
+          <div class="title">Guardian</div>
+          <div class="name">AliPay等</div>
+        </div>
+      </div>
     </div>
+    <div class="dest">
+      <div class="name">Menu</div>
+      <div class="adventure cell a">adventure</div>
+      <div class="gears cell">gears</div>
+      <div class="hero cell">hero</div>
+      <div class="package cell">package</div>
+      <div class="skill cell">skill</div>
+    </div>
+    <div class="self"></div>
+    <div class="host" :style="{backgroundImage:'url(/static/'+card+'.png)'}"></div>
+    <div class="setting"></div>
   </div>
 </template>
 
@@ -12,7 +27,8 @@
 export default {
   data() {
     return {
-      show: false
+      show: false,
+      card: "1"
     };
   },
   mounted() {
@@ -23,6 +39,6 @@ export default {
 };
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-@import "./style.css";
+<style lang="sass" scoped>
+@import "./style.scss";
 </style>

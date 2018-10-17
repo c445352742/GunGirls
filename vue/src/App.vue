@@ -22,9 +22,10 @@ export default {
         recalc = function() {
           var clientWidth = docEl.clientWidth;
           if (!clientWidth) return;
-          if (docEl.clientWidth / 16 > docEl.clientHeight / 9) {
-            clientWidth = (docEl.clientHeight * 16) / 9;
+          if (docEl.clientWidth / 16 > docEl.clientHeight / 10) {
+            clientWidth = (docEl.clientHeight * 16) / 10;
           }
+          // 基准分辨率 1200*750
           clientWidth = Math.max(1200, clientWidth);
           docEl.style.fontSize = 10 * (clientWidth / 750) + "px";
         };
@@ -50,6 +51,8 @@ export default {
   top: 0;
   width: 100vw;
   height: 100vh;
+  min-width: 1200px;
+  min-height: 750px;
   font-family: "Arial";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
