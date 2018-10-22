@@ -19,7 +19,9 @@
     </div>
     <div class="self"></div>
     <div class="host" :style="{backgroundImage:'url(/static/'+card+'.png)'}"></div>
-    <div class="setting"></div>
+    <div class="setting">
+    </div>
+
   </div>
 </template>
 
@@ -32,7 +34,26 @@ export default {
     };
   },
   mounted() {
-    console.log(this.$store);
+    let self = this;
+    this.ajax({
+      method: "post",
+      url: "http://127.0.0.1:9000/api/refreshAll",
+      success(result) {
+        if (result.status === "success") {
+        } else {
+          self.$tip({
+            class: "msg",
+            text: result.data.msg
+          });
+        }
+      },
+      error(result) {
+        self.$tip({
+          class: "msg",
+          text: result.data ? result.data.msg : 'server error'
+        });
+      }
+    });
   },
   methods: {},
   components: {}
@@ -40,5 +61,5 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="sass" scoped>
-@import "./style.scss";
+@import "./style.scss"
 </style>
