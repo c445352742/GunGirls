@@ -26,7 +26,6 @@ export default {
       this._hide();
     },
     ini() {
-      console.log(this.props.text)
       this._show();
       this.flag = "";
       this.text = this.props.text;
@@ -56,7 +55,7 @@ export default {
 .tip {
   width: 450px;
   border-radius: 4px;
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 0.9);
   overflow: hidden;
   position: absolute;
   padding: 2rem;

@@ -73,8 +73,7 @@ export default {
           } else {
             self.$tip({
               class: "msg",
-              text: result.data.msg,
-              time: 1000
+              text: result.data.msg
             });
           }
         }
@@ -94,7 +93,7 @@ export default {
             self.$tip({
               class: "msg",
               text: "登录成功",
-              time: 1000,
+              time: 500,
               callback: () => {
                 self.$router.push('/home')
               }

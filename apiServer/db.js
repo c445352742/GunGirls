@@ -105,12 +105,12 @@ function DB() {
   }
 
   // 读
-  self.get = function (str) {
+  self.get = function (argv) {
     if (self.illegal) {
       return 'database illegal, please check';
     }
     let s = undefined;
-    if (str === "login") {
+    if (argv.cmd === "login") {
       return self.data.userList;
     }
     return "unexpected param";

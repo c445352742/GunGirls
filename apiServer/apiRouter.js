@@ -1,11 +1,11 @@
 const router = require('express').Router();
-
-
 module.exports = function (db) {
+
+  // 登录
   router.post('/login', function (req, res, next) {
     let pwdC = false;
     let nameC = false;
-    user = db.get('login');
+    user = db.get({cmd:'login'});
     for (let i in user) {
       if (user[i].name === req.body.name) {
         nameC = true;
@@ -24,6 +24,8 @@ module.exports = function (db) {
       res.send({ status: 'error', errCode: 'noAcc', data: { msg: 'no such user' } })
     }
   })
+
+  // 注册
   router.post('/register', function (req, res, next) {
     let o = {
       status: 'success', data: { msg: 'register done!' }
@@ -38,5 +40,14 @@ module.exports = function (db) {
     res.send(o)
   })
 
+  // 刷新个人信息
+  router.post('/refreshAll', function (req, res, next) {
+    let o = {
+      status: 'success', data: { msg: 'get personal info done!' }
+    };
+    o.data.package = db.get({cmd:'package'});
+    o.data.property = db.get({cmd:'property'});
+    res.send(o)
+  })
   return router;
 };

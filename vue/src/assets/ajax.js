@@ -58,15 +58,11 @@ function Ajax(params) {
     // 发送cookie等
     xhr.withCredentials = true;
 
-
-    // console.log(data);
-    // data = null;
-
-    xhr.send(JSON.stringify(data));
+     xhr.send(JSON.stringify(data)); 
   }
 
   // 处理返回数据
-  xhr.onreadystatechange = function () {
+  xhr.onreadystatechange = function (e) {
     if (xhr.readyState == 4) {
       if (xhr.status == 200) {
         success ? success(JSON.parse(xhr.responseText)) : console.log(xhr.responseText);
@@ -79,6 +75,14 @@ function Ajax(params) {
       }
     }
   }
+  // xhr.onerror = function (err) {
+  //   if (error) {
+  //     error(xhr);
+  //   } else {
+  //     console.error(xhr)
+  //   }
+  // }
+
   xhr.ontimeout = function () {
     console.error(url + ' request time out');
   }
