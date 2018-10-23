@@ -102,16 +102,23 @@ function DB() {
         callback && callback('save error');
       }
     }
-  }
+  } 
 
   // 读
   self.get = function (argv) {
     if (self.illegal) {
       return 'database illegal, please check';
     }
-    let s = undefined;
     if (argv.cmd === "login") {
       return self.data.userList;
+    }
+    if (argv.cmd === "package") {
+      console.log(self.data.personal)
+      console.log(argv.user)
+      return self.data.personal[argv.user].package;
+    }
+    if (argv.cmd === "info") {
+      return self.data.personal[argv.user].info;
     }
     return "unexpected param";
   }

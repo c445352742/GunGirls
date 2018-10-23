@@ -45,6 +45,7 @@ export default {
             class: "msg",
             text: result.data.msg
           });
+          self.$router.push('/');
         }
       },
       error(result) {

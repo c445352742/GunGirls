@@ -5,7 +5,7 @@ module.exports = function (db) {
   router.post('/login', function (req, res, next) {
     let pwdC = false;
     let nameC = false;
-    user = db.get({cmd:'login'});
+    user = db.get({ cmd: 'login' });
     for (let i in user) {
       if (user[i].name === req.body.name) {
         nameC = true;
@@ -28,14 +28,15 @@ module.exports = function (db) {
   // 注册
   router.post('/register', function (req, res, next) {
     let o = {
-      status: 'success', data: { msg: 'register done!' }
+      status: 'success', errCode: '', data: { msg: 'register done!' }
     };
     db.create({
       name: req.body.name,
       pwd: req.body.pwd
     }, (msg) => { //error callback
       o.status = 'failed';
-      o.data.msg = msg
+      o.data.msg = msg;
+      o.data.errCode = 'regErr';
     })
     res.send(o)
   })
@@ -43,11 +44,18 @@ module.exports = function (db) {
   // 刷新个人信息
   router.post('/refreshAll', function (req, res, next) {
     let o = {
-      status: 'success', data: { msg: 'get personal info done!' }
+      status: 'success', errCode: '', data: { msg: 'get personal info done!' }
     };
-    o.data.package = db.get({cmd:'package'});
-    o.data.property = db.get({cmd:'property'});
-    res.send(o)
+    if (req.session.userName === undefined) {
+      o.status = 'failed';
+      o.data.msg = 'Login Timeout'
+      o.data.errCode = 'sessionExpired'
+      res.send(o);
+      return;
+    }
+    o.data.package = db.get({ cmd: 'package', user: req.session.userName });
+    o.data.property = db.get({ cmd: 'info', user: req.session.userName });
+    res.send(o);
   })
   return router;
 };
