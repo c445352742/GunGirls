@@ -29,5 +29,3 @@
   "workbench.sideBar.location": "right",
   "git.autofetch": true,
 }
-
-html-tag-wrapper
