@@ -8,8 +8,6 @@ function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
-
-
 module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
@@ -36,7 +34,7 @@ module.exports = {
         use: [{
             loader: "style-loader" // 将 JS 字符串生成为 style 节点
         }, {
-            loader: "css-loader" // 将 CSS 转化成 CommonJS 模块
+            loader: "css-loader" // 将 CSS 转化成 CommonJS 模块
         }, {
             loader: "sass-loader" // 将 Sass 编译成 CSS
         }]

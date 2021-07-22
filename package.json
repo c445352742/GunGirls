@@ -1,6 +1,6 @@
 {
   "main": "Elec.js",
-  "name": "valkyrievictoria",
+  "name": "GunGirls",
   "version": "1.0.0",
   "description": "",
   "scripts": {
@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/c445352742/ValkyrieVictoria.git"
+    "url": "git+https://github.com/c445352742/GunGirls.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/c445352742/ValkyrieVictoria/issues"
+    "url": "https://github.com/c445352742/GunGirls/issues"
   },
-  "homepage": "https://github.com/c445352742/ValkyrieVictoria#readme",
+  "homepage": "https://github.com/c445352742/GunGirls#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
     "express-session": "^1.15.6",
